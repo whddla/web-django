@@ -1,0 +1,85 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/mypage/mypage.css' %}">
+</head>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.nickname }}
+            </h2>
+            <div id="profile-image">
+                {% if member_img %}
+                <img src="/media/img/ddm_user.png/" alt="">
+                {% else %}
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+                {% endif %}
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/mypage" class="">판매물품</a></li>
+                <li><a href="/member/mypage/buyproducts" class="">구매물품</a></li>
+                <li><a href="/member/mypage/reviews" class="">거래후기</a></li>
+                <li><a href="/member/mypage/wishes" class="active">찜리스트</a></li>
+                <li><a href="/member/mypage/qna" class="">문의내역</a></li>
+                <li><a href="/member/mypage/alarm" class="">알림설정</a></li>
+                <li><a href="/member/mypage/update" class="">개인정보수정</a></li>
+            </ul>
+        </section>
+        <div class="ant-row listWrap css-euacx" style="margin-left: -10px; margin-right: -10px; row-gap: 10px;">
+            {% for b in wishList %}
+            <div class="ant-col col css-t7ixlq e312bqk0" style="padding-left: 10px; padding-right: 10px;">
+                <a class="css-8rmnao">
+                    <div class="css-17j97b9">
+                        <div class="thumbWrap">
+                            <div class="css-jib2h7 img" name="{{ b.board_status }}">
+                                {%for f in wishFile%}
+                                    {%if b.bs_idx == f.upload_id %} 
+                                    <a href="/board/detail/?no={{ b.bs_idx }}">
+                                        <div class="{{ b.board_status }}">
+                                            <img class="css-c1pwq5" src="/media/{{f.upload_file}}/">
+                                        </div>
+                                    </a>
+                                    {%endif%}
+                                {%endfor%}
+                            </div>
+                            <div class="priceTxt">{{ b.price }}</div>
+                            <div class="titleTxt"><span class="css-5uwdmz">{{ b.title }}</span></div>
+                            <div class="registInfo"><span style="width: 50px;">{{b.upload_time}}</span><span style="font-size:12px; margin-left: 27px;">찜{{b.jjim_count}}</span><span style="font-size:12px; margin-left: 10px;">조회수{{b.count}}</span></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div id="no-records">등록한 상품이 아직 없어요!</div>
+            {% endfor %}
+        </div>
+        {% if wishCheck %}
+        <div style="text-align: center; margin-top: 10px;">
+            {% if wishList.has_previous %}
+                <a href="/member/mypage/?page=1"><<</a>
+                <a href="/member/mypage/?page={{ list.previous_page_number }}"><</a>
+            {% else %}
+                << <
+            {% endif %}
+            {% for page_number in wishList.paginator.page_range %}
+                {% if start_page <= page_number and end_page >= page_number %}
+                    {% if page_number == wishList.number %}
+                        <a href="#" class="page_num">&nbsp;{{page_number}}&nbsp;</a>
+                    {% else %}
+                        <a href="/member/mypage/?page={{ page_number }}" class="page_num">{{page_number}}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if wishList.has_next %}
+                <a href="/member/mypage/?page={{ list.next_page_number }}">></a>
+                <a href="/member/mypage/?page={{last_page}}">>></a>
+            {% else %}
+                > >>
+            {% endif %}
+        </div>
+        {% endif %}
+{%endblock%}

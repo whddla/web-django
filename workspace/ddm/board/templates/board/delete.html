@@ -1,0 +1,105 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/manage.css' %}">
+    <title></title>
+</head>
+<body>
+    <div class="dCpIGN">
+        <div class="cKIAcS">
+            <nav class="bWVQxC">
+                <div class="cUcIFa">
+                    <a class="sc-cBrjTV" href="/board/new/">상품등록</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="iCJZxd" href="/board/manage/" style="color: rgb(255, 80, 88);">상품관리</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="hiJdyf" href="/board/buy/">구매/판매 내역</a>
+                </div>
+            </nav>
+        </div>
+        <div class="manage-all">
+            <main class="manage-main">
+                <header class="manage-header">
+                    <form action="" class="input-form">
+                        <input type="text" placeholder="상품명을 입력해주세요." value="">
+                        <button type="submit" class="kXVxEN"></button>
+                    </form>
+                    <div class="count-page">
+                        <select name="" id="" class="count-page-num">
+                            <option value="10">10개씩</option>
+                            <option value="20">20개씩</option>
+                            <option value="50">50개씩</option>
+                            <option value="100">100개씩</option>
+                        </select>
+                    </div>
+                    <div class="state-page">
+                        <select name="" id="" class="state-page-num">
+                            <option value="전체">전체</option>
+                            <option value="판매">판매 중</option>
+                            <option value="예약">예약 중</option>
+                            <option value="완료">판매완료</option>
+                        </select>
+                    </div>
+                </header>
+                <table>
+                    <thead>
+                        <tr style="font-weight: 600;">
+                            <th>사진</th>
+                            <th>판매상태</th>
+                            <th>제목</th>
+                            <th>가격</th>
+                            <th>찜</th>
+                            <th>최근수정일</th>
+                            <th>기능</th>
+                        </tr>
+                        <!-- 상품정보 -->
+                        {% for b in boardList %}
+                        <tr>
+                            <td>
+                                {% for i in boardImage %}
+                                {%if b.bs_idx == i.upload_id %}
+                                <a href="{{i.upload_file.url}}">
+                                    <img src="/media/{{i.upload_file}}/" style="width: 100%; height: 100%;" alt="">
+                                </a>
+                                {%endif%}
+                                {%empty%}
+                                <a><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdrxq8Spoi9V0I5vnaACtpsxvVPlgtRGxjqBolKHPVA&s" style="width: 100%; height: 100%;" alt=""></a>
+                                {%endfor%}
+                            </td>
+                            <td>
+                                <div class="state-cotainer">
+                                    <select name="{{status}}" id="" class="state-option">
+                                        <option value="0">판매중</option>
+                                        <option value="1">판매완료</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td><a href="">{{b.title}}</a></td>
+                            <td>{{b.price}}</td>
+                            <td>{{b.jjim_count}}</td>
+                            <td>{{b.upload_time}}</td>
+                            <td>
+                                <button type="button" class="delete" name="{{b.bs_idx}}" onclick="confirm()">삭제</button>
+                                <button type="button" class="update" name="{{b.bs_idx}}" onclick="location.href='/board/update/{{b.bs_idx}}'">수정</button>
+                            </td>
+                        </tr>
+                        {%empty%}
+                        <div class="null">등록된 상품이 없습니다.</div>
+                        {%endfor%}
+                    </thead>
+                </table>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+{%endblock%}

@@ -1,0 +1,532 @@
+* {
+    box-sizing: border-box;
+}
+.channel-talk-button {
+    cursor: pointer;
+    position: fixed;
+    border-style: none;
+    width: 60px;
+    height: 60px;
+    bottom: 71px;
+    right: 28px;
+    background: url("https://cdn-icons-png.flaticon.com/512/3010/3010825.png") 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1000;
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    border-radius: 50%;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-size: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+.flex-wrap{
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 100vh;
+    background: transparent;
+    position: relative;
+}
+
+.header-wrap{
+    width: 100%;
+    background: rgba(255, 255, 255, 0);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.header {
+    width: 100%;
+    position: relative;
+}
+
+.top2 {
+    max-width: 1280px;
+    margin: auto;
+    position: relative;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.flex-top {
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.flex-top .search-wrap{
+    flex: 1;
+    margin: 0 5%;
+    position: relative;
+}
+
+.flex-top .search-wrap .searchBtn{
+    width: 100%;
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 30px;
+    background: #F5F5F5;
+    box-shadow: none;
+    text-align: left;
+    font-size: 14px;
+    color: #A3A3A3;
+}
+
+.flex-top .search-wrap .search-icon{
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+}
+
+.login-wrap {
+    width: 244px;
+    height: 44px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: -webkit-center;
+}
+
+.login, .signup {
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.nav1 {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 20px;
+    max-width: 1280px;
+    margin: auto;
+    position: relative;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.nav2{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.menu2{
+    list-style: none;
+}
+
+.nav2 .menu1 .menu2 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 64px;
+}
+
+.nav2 .menu1 .menu2 {
+    padding: 0 14px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.menu3 {
+    padding: 0 14px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    
+}
+
+.menu3 a {
+    font-weight: 500;
+    font-size: 20px;
+    opacity: 1!important;
+}
+.menu-dot{
+    position: absolute;
+    height: 1px;
+    width: 10px;
+    background: #000000;
+    bottom: 37px;
+    transition: 0.2s;
+    border-radius: 5px;
+}
+
+.css-1oi3byu {
+    display: none;
+    position: fixed;
+    width: 100%;
+    top: 136px;
+    left: 0px;
+    z-index: 9;
+}
+.close {
+    cursor: pointer;
+    float: right;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    opacity: 0.8;
+}
+  
+.close:before, .close:after {
+    position: absolute;
+    content: ' ';
+    right: 55px;
+    height: 28px;
+    width: 1px;
+    background-color: #000;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}
+
+.css-18x3p7g {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.css-1oi3byu .content {
+    background: rgb(255, 255, 255);
+    border-top: 1px solid rgb(245, 245, 245);
+    position: relative;
+    z-index: 1;
+}
+.css-goo9i5 {
+    max-width: 1280px;
+    margin: 0px auto;
+    position: relative;
+    padding: 45px 40px 68px;
+}
+
+.css-1oi3byu .content ul {
+    display: flex;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.css-1oi3byu .content .title {
+    font-size: 20px;
+}
+
+.css-1oi3byu .content ul li {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: flex-start;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 12px 32px 12px 0px;
+}
+
+.css-ysl6er {
+    font-size: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    padding: 0px;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    border: none;
+    color: rgb(102, 102, 102);
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: 0px 0.5rem;
+}
+
+.footer-wrap{
+    width: 100%;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: flex-end;
+    align-self: flex-end;
+    padding: 48px 15px;
+    color: #A3A3A3;
+    background-color: #F5F5F5;
+    font-size: 12px;
+}
+
+.footer{
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 1.5;
+    white-space: pre-line;
+    position: relative;
+}
+
+.footer .title{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.footer .content{
+    line-height: 2;
+    margin: 20px 0 0 0;
+}
+
+.footer .divider{
+    width: 1px;
+    height: 8px;
+    background-color: #E0E0E0;
+    margin: 0 8px;
+    display: inline-block;
+}
+.css-oi3s1u {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.css-oi3s1u li {
+    margin-bottom: 10px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: baseline;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    line-height: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+.css-13jhdfg {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.css-8rmnao {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    border: none;
+    color: #ff6900;
+    border-radius: 0.25rem;
+    padding: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    gap: 0 0.5rem;
+}
+
+.css-13jhdfg button:first-of-type {
+    margin-left: 0;
+}
+.css-13jhdfg button {
+    margin-left: 20px;
+}
+
+/* 검색 */
+.offcanvas-header{
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    -webkit-justify-content: end;
+    justify-content: end;
+    height: 48px;
+    margin-top: 20px;
+    padding: 16px 0;
+}
+.css-t2c09h {
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+    position: relative;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.css-14470xp {
+    margin: 16px 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 0.8rem;
+    background: #F5F5F5;
+    border-radius: 0.5rem;
+}
+
+.css-14470xp input {
+    width: 100%;
+    height: 100%;
+    padding: 0 0.4rem;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.container {
+    flex: 1;
+    width: 100%;
+    background: #fff;
+}
+
+.css-1wgqh8v {
+    padding: 40px 0 70px 0;
+}
+
+.css-1wgqh8v .title {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 500;
+}
+.css-1wgqh8v .noList {
+    margin-top: 30px;
+    text-align: center;
+    color: #A3A3A3;
+    font-size: 14px;
+}
+/* 검색끝 */
+
+.header{
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+a:hover{
+    color: #333;
+}

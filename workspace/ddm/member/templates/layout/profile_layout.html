@@ -1,0 +1,36 @@
+{% extends 'layout/layout2.html' %}
+{%load static%}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/layout/profile_layout.css' %}">
+{%endblock%}
+{% block style2 %}
+{%endblock%}
+
+{%block content%}
+<div class="ant-col ant-col-20 css-t77d8m">
+    <section id="user-profile">
+        <h2 id="user-name">
+            이종임
+            <span id="region_name">의정부시 낙양동</span>
+        </h2>
+        <ul id="profile-detail">
+            <li class="profile-detail-title">
+                매너 온도
+                <span class="profile-detail-count">40.3˚C</span>
+            </li>
+        </ul>
+        <div id="profile-image">
+            <img src="https://thumb.mtstarnews.com/06/2020/02/2020022410573665053_1.jpg" alt="">
+        </div>
+    </section>
+    <section id="user-filter">
+        <ul>
+            <li><a href="/member/profile/" class="active">판매물품</a></li>
+            <li><a href="/member/review/" class="">거래 후기</a></li>
+            <li><a href="/member/manner/" class="">매너 칭찬</a></li>
+        </ul>
+    </section>
+    {%block content2%}{%endblock%}
+</div>
+{%endblock%}

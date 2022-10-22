@@ -1,0 +1,65 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/profiles/manner.css' %}">
+</head>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.name }}
+            </h2>
+            <ul id="profile-detail">
+                <li class="profile-detail-title">
+                    매너 온도
+                    <span class="profile-detail-count">{{ mTemper }}˚C</span>
+                </li>
+            </ul>
+            <div id="profile-image">
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/profile" class="">판매물품</a></li>
+                <li><a href="/member/profile/reviews" class="">거래 후기</a></li>
+                <li><a href="/member/profile/manner" class="active">매너 칭찬</a></li>
+            </ul>
+        </section>
+        <section id="user-records" class="user-manners">
+            <ol id="manners-list">
+                <li class="manner">
+                    <p class="manner-content">1.친절하고 매너가 좋아요.</p>
+                    <p class="manner-count">{{ manner.manner_1 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">2.상품상태가 설명한 것과 같아요.</p>
+                    <p class="manner-count">{{ manner.manner_2 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">3.시간 약속을 잘 지켜요.</p>
+                    <p class="manner-count">{{ manner.manner_3 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">4.좋은 상품을 저렴하게 판매해요.</p>
+                    <p class="manner-count">{{ manner.manner_4 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">5.응답이 빨라요.</p>
+                    <p class="manner-count">{{ manner.manner_5 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">6.상품설명이 자세해요.</p>
+                    <p class="manner-count">{{ manner.manner_5 }}명</p>
+                </li>
+                <li class="manner">
+                    <p class="manner-content">7.나눔을 해주셨어요.</p>
+                    <p class="manner-count">{{ manner.manner_5 }}명</p>
+                </li>
+            </ol>
+        </section>
+        </div>
+</body>
+</html>
+{%endblock%}

@@ -1,0 +1,155 @@
+{% extends 'layout/layout.html' %}
+{%load static%}{% load humanize %}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/buy.css' %}">
+    <title></title>
+</head>
+<body>
+    <div class="dCpIGN">
+        <div class="cKIAcS">
+            <nav class="bWVQxC">
+                <div class="cUcIFa">
+                    <a class="sc-cBrjTV" href="/board/new/">상품등록</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="iCJZxd" href="/board/manage/">상품관리</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="hiJdyf" href="/board/buy/" style="color: rgb(255, 80, 88);">구매/판매 내역</a>
+                </div>
+            </nav>
+        </div>
+    <ul class="menu-wrap">
+        <li><a href="/board/buy/" style="display: block;">구매</a></li>
+        <li class="disp"><a href="/board/sell/" style="display: block;">판매</a></li>
+    </ul>
+        <div class="filter-wrap">
+            <div class="tab_box">
+                <button class="tabs showactive" onclick ="tabOpen(event, 'all');" id="basic_content">
+                    <span class="bullet">판매목록</span>
+                </button>
+                <button class="tabs" onclick="tabOpen(event, 'completion');" >
+                    <span class="bullet">판매완료</span>
+                </button>
+            </div>
+            <div style="font-size: 21px;">총 판매금액 : {{ cost|intcomma }}원</div>
+        </div>
+        {%if b%}
+        <div id="all" class="filter_content">
+            <div class="all">
+                {% for i in b %}
+                <div class="card-box">
+                    {% for j in bf %}
+                    {%for k in j%}
+                    {% if i.bs_idx == k.upload_id %}
+                    {%if forloop.first == True%}
+                    <div class="board-img">
+                        {%if i.board_status == 0%}
+                        <a href="/board/detail/?no={{ i.bs_idx }}">
+                            <img src="{{k.upload_file.url}}" alt=""></div>
+                        </a>
+                        {%else%}
+                            <img src="{{k.upload_file.url}}" alt=""></div>
+                        {%endif%}
+                    <div class="info-card">
+                        <div class="board-title">{{i.title}}
+                            <div class="board-status" style="display: inline-block;">
+                                {% if i.board_status == 0 %}
+                                    <div class="selling">판매중</div>
+                                {%else%}
+                                    <div class="selled">판매완료</div>
+                                {%endif%}
+                            </div>
+                        </div>
+                        <div class="board-jjim">찜 횟수 : {{i.jjim_count}}</div>
+                        <div class="board-price">가격 : {{ i.price|intcomma }}원</div>
+                        <div class="board-upload">판매일 : {{i.upload_time}}</div>
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                    {%endfor%}
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+        <div id="completion" class="filter_content">
+            <div class="all">
+                {% for i in b %}
+                {%if i.board_status == 0%}
+                <div style="display: none;"></div>
+                {%else%}
+                <div class="card-box">
+                    {% for j in bf %}
+                    {% for k in j %}
+                    {% if i.bs_idx == k.upload_id and i.board_status == 1 %}
+                    {%if forloop.first == True%}
+                    <div class="board-img"><img src="{{k.upload_file.url}}" alt=""></div>
+                    <div class="info-card">
+                        <div class="board-title">{{i.title}}
+                            <div class="board-status" style="display: inline-block;">
+                                <div class="selled">판매완료</div>
+                            </div>
+                        </div>
+                        <div class="board-jjim">찜 횟수 : {{i.jjim_count}}</div>
+                        <div class="board-price">가격 : {{ i.price|intcomma }}원</div>
+                        <div class="board-upload">판매일 : {{i.upload_time}}</div>
+                    </div>
+                    {%endif%}
+                    {%else%}
+                    <div style="display: none;"></div>
+                    {%endif%}
+                    {%endfor%}
+                    {%endfor%}
+                </div>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    {%else%}
+        <section class="div-wrap">
+            <div id="all" class="filter_content">
+                <!-- 구매내역 없음 -->
+                <div class="emptyResult">
+                    판매내역이 없습니다.
+                </div>
+            </div>
+        </section>
+    {%endif%}
+</body>
+<script>
+    document.getElementById("basic_content").click();
+    function tabOpen(evt, contentName){
+        var i, tabcontent, tab_btn;
+        
+        tabcontent = document.getElementsByClassName("filter_content");
+        for(i = 0; i<tabcontent.length; i++){ //내용을 나열
+            tabcontent[i].style.display = "none";
+        }
+        
+        tab_btn = document.getElementsByClassName("tabs");
+        for(i = 0; i<tab_btn.length; i++){ // 탭 버튼 나열
+            
+            //탭 버튼을 눌렀을 때 기존 탭 class 삭제
+            tab_btn[i].className = tab_btn[i].className.replace(" showactive","");
+            
+        }
+        //탭을 눌렀을 때 해당 id의 내용을 출력
+        document.getElementById(contentName).style.display = "block";
+        //class 생성 이벤트 발생
+        evt.currentTarget.className += " showactive";
+    }
+    
+
+</script>
+</html>
+
+{%endblock%}

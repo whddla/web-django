@@ -1,0 +1,244 @@
+.css-669dk7 {
+    width: 100%;
+    margin: 0px auto;
+    max-width: 1280px;
+    padding: 0px 40px;
+}
+
+.ant-row, .ant-row:after, .ant-row:before {
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+}
+
+.ant-row {
+    -webkit-flex-flow: row wrap;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    flex-flow: row wrap;
+}
+
+.ant-col-4 {
+    display: block;
+    -webkit-flex: 0 0 16.66666667%;
+    -moz-box-flex: 0;
+    flex: 0 0 16.66666667%;
+    max-width: 16.66666667%;
+}
+
+.ant-col {
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+.css-1iwhb7o {
+    display: block;
+}
+
+.css-1tgg12g {
+    width: 100%;
+    height: 100%;
+    padding: 0px 0px 30px;
+}
+.css-jx87nv {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    height: 109px;
+    color: rgb(10, 4, 0);
+    font-size: 22px;
+    font-weight: 500;
+    padding: 47px 0px 34px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.css-7vb4mz {
+    padding: 32px 0px 25px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.css-1pu45ma {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 0px;
+    color: rgb(10, 4, 0);
+    text-align: left;
+    background: none;
+}
+
+.css-12ph5yl {
+    position: relative;
+    font-weight: 500;
+}
+
+ul, li{
+    padding: 0;
+    margin: 0;
+}
+
+
+/*  */
+ul.sub{
+	display:none;
+}
+* html ul.sub{
+	zoom:1;
+	position:relative;
+}
+*+html ul.sub{
+	zoom:1;
+	position:relative;
+}
+ul.sub li{
+	float:none;
+}
+ul.sub li {
+	margin-left: 10px;
+}
+ul.sub li ul.sub{
+	margin-left: 10px;
+}
+
+.menu-dot {
+    position: absolute;
+    height: 1px;
+    width: 10px;
+    background: #000000;
+    bottom: 22px;
+    transition: 0.2s;
+    border-radius: 5px;
+}
+
+.ant-col-20 {
+    display: block;
+    -webkit-flex: 0 0 83.33333333%;
+    -moz-box-flex: 0;
+    flex: 0 0 83.33333333%;
+    max-width: 83.33333333%;
+}
+
+.css-t77d8m {
+    padding-left: 20px;
+    padding-top: 28px;
+}
+
+.all-category{
+    height: 80px;
+    padding: 22px 0px 35px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+    border-bottom: 1px solid rgb(102, 102, 102);
+}
+
+.view-choice{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 21.5px 0;
+    font-size: 14px;
+    line-height: 17px;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.view-choice a{
+    background-color: #ffffff;
+    color: #0A0400;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 18px;
+    min-width: 55px;
+}
+
+.view-select:not(:first-of-type) {
+    padding-left: 16px;
+    border-left: 1px solid #E0E0E0;
+    margin-left: 16px;
+}
+
+.css-euacx {
+    padding: 28px 0px 8px;
+}
+
+.css-t7ixlq {
+    flex-basis: 25%;
+    max-width: 250px;
+}
+
+.css-17j97b9 {
+    color: rgb(10, 4, 0);
+    margin-bottom: 25px;
+}
+
+.css-17j97b9 .thumbWrap {
+    position: relative;
+}
+
+.css-jib2h7 {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.css-c1pwq5 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    display: block !important;
+}
+
+.css-17j97b9 .priceTxt {
+    padding-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.css-17j97b9 .titleTxt {
+    padding-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    line-height: 17px;
+}
+
+.css-5uwdmz {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 17px;
+    max-height: 34px;
+}
+
+.css-euacx .col > a {
+    display: block;
+}

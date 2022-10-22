@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <title>썸썸</title>
+</head>
+<style>
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .letter-wrap {
+        position: relative;
+        height: 100%;
+    }
+
+    .letter-header {
+        position: relative;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        min-height: 60px;
+        padding-right: 14px;
+        padding-bottom: 1px;
+        padding-left: 22px;
+    }
+    .letter-header1 {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    .letter-font {
+        margin-left: 20%;
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        font-style: normal;
+        font-weight: 600;
+        color: inherit;
+        transition: color 150ms cubic-bezier(0.3, 0, 0, 1) 0ms;
+    }
+
+    .letter-content {
+        PADDING: 10px 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 18px;
+        box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+        margin: 20px 20px;
+    }
+
+    .letter-content-send {
+        padding: 12px 0px 6px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 18px;
+        box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
+    }
+
+    .chat-wrap {
+        margin: 8px 6px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+
+    .from-who {
+        justify-content: left;
+        align-items: center;
+    }
+
+    .chat-header {
+        font-size: 20px;
+    }
+
+    .time {
+        margin-left: 7px;
+    }
+
+    .letter-btn {
+        float: right;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #7ec7428c;
+        color: #fff;
+        border: 1px solid #fff;
+        border-radius: 7px;
+        margin-left: 12px;
+        PADDING: 5px 11px;
+    }
+
+    .send-letter {
+        min-height: 35px;
+        margin-bottom: 20px;
+    }
+
+    .tab_box , .tabs{
+        border: none;
+        background-color: #fff;
+        margin-left: 8px;
+        margin-top: 5px;
+    }
+
+    .tab_box .active {
+        border: none;
+        color: #fff;
+    }
+
+    .tab_box span{
+        background-color: #7ec7428c;
+        font-size: 20px;
+        padding: 5px 11px;
+        /*border: 1px solid #fe5d5f8c;*/
+        border-radius: 8px;
+    }
+
+    .check-btn {
+        background-color: #fff;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .answer-content {
+        display: block;
+        width:95%;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        font-size: 14px;
+        height: 100px;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+    }
+    
+    div#chat-wrap input:focus{
+        outline: none;
+        background-color: white;
+        border: 1px solid rgb(249, 216, 161);
+    }
+
+</style>
+<body>
+<div class="letter-wrap">
+    <div class="letter-header">
+        <div class="letter-header1">
+            <img style="width: 120px; height:30px;" src="/img/sumsum_logo.png">
+            <span class="letter-font">뚜벅톡</span>
+        </div>
+    </div>
+    <div class="send-letter">
+        <div class="tab_box">
+            <button class="tabs" onclick ="tabOpen(event, 'letter-content');" id="basic_content">
+                <span class="bullet">수신함</span>
+            </button>
+            <button  type ="button"class="tabs active"onclick="tabOpen(event, 'sendLetter');">
+                <span class="bullet">발신함</span>
+            </button>
+        </div>
+    </div>
+    <!-- 수신함-->
+          <div class="letter-content" id="letter-content" style ="display: none;">
+              <div class="chat-wrap">
+                  <div style="width: 100%;">
+                      <div class="chat-header">
+                          <button class="check-btn" id="check">ㅎㅇ</button>
+                          <form id="contentCheck" name="contentCheck" action="" style="display:none;">
+                              <div class="answer-content" id="contentCheck">
+                                  안녕하세요
+                              </div>
+                          </form>
+                      </div>
+                      <div class="from-who">
+                          <span class="who">
+                              발송자:이종임
+                          </span>
+                          <span class="time">
+                              6/15
+                          </span>
+                          <button class="letter-btn">삭제</button>
+                          <button class="letter-btn" id="send" onsubmit="sendLetter()">답장</button>
+                          <form id="frm" name="frm" action="/registerIn" method="post" style="display: none;">
+                              <div class="chat-wrap letter-con">
+                                <!--<input type="text" id="title" name="userName" th:value="${messageList.userName}"-->  style="width: 95%;height: 30px; margin-top: 15px;margin-bottom: 10px; padding: 0 15px; border: 1px solid #e0e0e0;;" />
+                                  <input type="text" id="title" name="messageTitle" placeholder="제목" style="width: 95%;height: 30px; margin-top: 15px;margin-bottom: 10px; padding: 0 15px; border: 1px solid #e0e0e0;;" />
+                                  <textarea id="content" name="messageContent" cols="40" rows="10" style="width: 95%;margin-bottom: 10px; padding: 10px 15px;resize: none;border: 1px solid #e0e0e0;" placeholder="상대방에게 보낼 내용을 작성해주세요."></textarea>
+                                  <button  name="write" id="write" style="display: block; margin: 0 auto;width: 100px;height: 30px;border: none;border-radius: 8px;background-color:#fd5d5f;color:#fff;cursor: pointer;" >발송하기</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    <!-- 발신함 -->
+
+
+
+
+    <div class="letter-content" id="sendLetter" style ="display: block;font-weight: bold;" >
+
+        <div style="position: relative;top: -53px;left: 138px;">
+        <span th:text="'발신 메세지 : '+${messageCount}+'개'" style="position: relative;left: 35px;"></span>
+        </div>
+
+        <th:block th:each="message:${messageList}">
+            <div class="chat-wrap"th:object="${message}" style="margin: 32px 6px;">
+                <div style="width: 100%;">
+                    <span name="userName" th:text="|수신자 : *{userName}|" style="position: relative;left: 3px;top: -4px;"></span>
+                    <div class="chat-header">
+                        <span name="messageNum" th:field="*{messageNum}" ></span>
+
+                        <button type="button"class="check-btn myCheck" th:text="*{messageTitle}"></button>
+                        <!-- 보내기 -->
+                        <!--  <form id="myContentCheck" name="myContentCheck" action="" style="display:none;">-->
+                        <div class="answer-content myContentCheck"  th:text="*{messageContent}" style=" display:none;height: 47px;">
+
+                        </div>
+                        <!--  </form>-->
+                        <!-- 쪽지 내용 -->
+                    </div>
+                    <div class="from-who">
+                          <!--  <span class="who">
+                                이종임
+                            </span>-->
+                        <span class="time" th:text="*{messageSendDate}">
+
+                            </span>
+                        <a class="letter-btn"th:href="@{/remove(messageNum=*{messageNum})}">삭제</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    /* 쪽지함 */
+    $(function(){
+        $('#send').click(function(){
+            $("#frm").removeClass("on");
+            $('#frm').slideToggle();
+        })
+    })
+
+    /* 수신함 */
+    $(function(){
+        $('#check').click(function(){
+            $("#contentCheck").removeClass("on");
+            $('#contentCheck').slideToggle();
+        })
+    })
+
+    /* 발신함 */
+    $(function(){
+        $('.myCheck').click(function(){
+            $(".myContentCheck").removeClass("on");
+            $(this).next().slideToggle();
+        })
+    })
+    function tabOpen(evt, contentName){
+        var i, tabcontent, tab_btn;
+
+        tabcontent = document.getElementsByClassName("letter-content");
+        for(i = 0; i<tabcontent.length; i++){ //내용을 나열
+            tabcontent[i].style.display = "none";
+        }
+
+        tab_btn = document.getElementsByClassName("tabs");
+        for(i = 0; i<tab_btn.length; i++){ // 탭 버튼 나열
+
+            //탭 버튼을 눌렀을 때 기존 탭 class 삭제
+            tab_btn[i].className = tab_btn[i].className.replace(" active","");
+
+
+        }
+        //탭을 눌렀을 때 해당 id의 내용을 출력
+        document.getElementById(contentName).style.display = "block";
+        //class 생성 이벤트 발생
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+</html>

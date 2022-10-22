@@ -1,0 +1,98 @@
+{% extends 'layout/layout.html' %}
+{%load static%}{% load humanize %}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/manage.css' %}">
+    <title></title>
+</head>
+<body>
+    <div class="dCpIGN">
+        <div class="cKIAcS">
+            <nav class="bWVQxC">
+                <div class="cUcIFa">
+                    <a class="sc-cBrjTV" href="/board/new/">상품등록</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="iCJZxd" href="/board/manage/" style="color: rgb(255, 80, 88);">상품관리</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="hiJdyf" href="/board/buy/">구매/판매 내역</a>
+                </div>
+            </nav>
+        </div>
+        <div class="manage-all">
+            <main class="manage-main">
+                <table>
+                    <thead>
+                        <tr style="font-weight: 600;">
+                            <th>사진</th>
+                            <th>판매상태</th>
+                            <th>제목</th>
+                            <th>가격</th>
+                            <th>찜</th>
+                            <th>최근수정일</th>
+                            <th>기능</th>
+                        </tr>
+                        <!-- 상품정보 -->
+                        {% for b in boardList %}
+                        <tr>
+                            <td>
+                                {% for i in boardImage %}
+                                {%if b.bs_idx == i.upload_id %}
+                                <a href="/board/detail/?no={{ b.bs_idx }}">
+                                    <img src="/media/{{i.upload_file}}/" style="border: 1px solid #c7c7c7;border-radius: 10px; width: 100%; height: 100%;" alt="">
+                                </a>
+                                {%endif%}
+                                {%empty%}
+                                <a><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdrxq8Spoi9V0I5vnaACtpsxvVPlgtRGxjqBolKHPVA&s" style="width: 100%; height: 100%;" alt=""></a>
+                                {%endfor%}
+                            </td>
+                            <td>
+                                <div class="state-cotainer">
+                                    {%if b.board_status == 0%}
+                                    <div value="0">판매중</div>
+                                    {%else%}
+                                    <div value="1">판매완료</div>
+                                    {%endif%}
+                                </div>
+                            </td>
+                            <td><a href="/board/detail/?no={{ b.bs_idx }}">{{b.title}}</a></td>
+                            <td>{{ b.price|intcomma }}</td>
+                            <td>{{b.jjim_count}}</td>
+                            <td>{{b.upload_time}}</td>
+                            <td>
+                                <button type="button" class="delete" name="{{b.bs_idx}}" onclick="location.href='/board/delete/{{b.bs_idx}}'">삭제</button>
+                                <button type="button" class="update" name="{{b.bs_idx}}" onclick="location.href='/board/update/{{b.bs_idx}}'">수정</button>
+                            </td>
+                            {%empty%}
+                            <table><div class="null">등록된 상품이 없습니다.</div></table>
+                        </tr>
+                        {%endfor%}
+                    </thead>
+                </table>
+            </main>
+        </div>
+    </div>
+</body>
+<script>
+    $('.delete').on('click', (e) => {
+        var num = e.target.name
+        console.log(num);
+    });
+
+    function enter() {
+        if (window.event.keyCode == 13) {
+            console.log(document.getElementById('search').value)
+            location.href="/?search=" + document.getElementById('search').value;
+            // 엔터키가 눌렸을 때
+        }
+    }
+</script>
+</html>
+{%endblock%}

@@ -1,0 +1,92 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/profiles/review.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.nickname }}
+            </h2>
+            <ul id="profile-detail">
+                <li class="profile-detail-title">
+                    매너 온도
+                    <span class="profile-detail-count">{{ mTemper }}˚C</span>
+                </li>
+            </ul>
+            <div id="profile-image">
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/profile" class="">판매물품</a></li>
+                <li><a href="/member/profile/reviews" class="active">거래 후기</a></li>
+                <li><a href="/member/profile/manner" class="">매너 칭찬</a></li>
+            </ul>
+        </section>
+        <section id="user-records" class="user-reviews">
+            <!-- 후기 없을때 -->
+            <!--  -->
+            {% for r in reviewList %}
+                <ul id="reviews-list">
+                    <li class="review">
+                        {% for i in userImges %}
+                            {%if r.r_send_idx == i.member_idx %}
+                                <div class="review-profile-photo">
+                                    <img src="/media/{{i.upload_file}}/" alt="">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="review-writer-username">
+                            <a href="">{{ r.r_send_idx.nickname }}</a>
+                        </div>
+                        <div class="review-writer-region-name">
+                            {{ r.r_bs_idx.title }}
+                        </div>
+                        <p class="review-content">{{ r.contents }}</p>
+                        <title class="review-time">{{ r.upload_time | date:'Y-m-d'}}</title>
+                    </li>
+                </ul>
+            {% empty %}
+                <div id="no-records">
+                    아직 등록된 후기가 없어요!
+                </div>
+            {% endfor %}
+        </section>
+        {% if reviewCheck %}
+        <div style="text-align: center; margin-top: 10px;">
+            {% if reviewList.has_previous %}
+                <a href="/member/mypage/?page=1"><<</a>
+                <a href="/member/mypage/?page={{ list.previous_page_number }}"><</a>
+            {% else %}
+                << <
+            {% endif %}
+            {% for page_number in reviewList.paginator.page_range %}
+                {% if start_page <= page_number and end_page >= page_number %}
+                    {% if page_number == reviewList.number %}
+                        <a href="#" class="page_num">&nbsp;{{page_number}}&nbsp;</a>
+                    {% else %}
+                        <a href="/member/mypage/?page={{ page_number }}" class="page_num">{{page_number}}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if reviewList.has_next %}
+                <a href="/member/mypage/?page={{ list.next_page_number }}">></a>
+                <a href="/member/mypage/?page={{last_page}}">>></a>
+            {% else %}
+                > >>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+{%endblock%}

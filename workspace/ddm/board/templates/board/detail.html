@@ -1,0 +1,390 @@
+{% extends 'layout/layout.html' %}
+{%load static%}{% load humanize %}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+</head>
+<style>a{color: #333; text-decoration: none;} .container{width:1100px;}</style>
+<body>
+    <div style="display: none" id="x">{{ selling.board_coordinate_x }}</div>
+    <div style="display: none" id="y">{{ selling.board_coordinate_y }}</div>
+    <div style="display: none" id="heart">{{ heart }}</div>
+    <div style="display: none" id="no">{{ selling.bs_idx }}</div>
+    <div style="display: none" id="board_status">{{ selling.board_status }}</div>
+    <div style="display: none" id="contents">{{ selling.contents }}</div>
+    <div class="container">
+        <div style="display: flex; padding: 30px 0px;">
+            <div class="col-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        {% for i in files %}
+                            {% if forloop.first %}
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}" class="active" aria-current="true" aria-label="Slide {{forloop.counter}}"></button>
+                            {% elif 5 > forloop.counter%}
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}" aria-label="Slide {{forloop.counter}}"></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                        {% for i in files %}
+                            {% if forloop.first %}
+                                <div class="carousel-item active">
+                                    <img src="/media/{{i.upload_file}}" class="d-block w-100" style="width: 430px; height: 430px;" alt="{{ i }}">
+                                </div>
+                            {% elif 5 > forloop.counter%}
+                                <div class="carousel-item">
+                                    <img src="/media/{{i.upload_file}}" class="d-block w-100" style="width: 430px; height: 430px;" alt="{{ i }}">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+            </div>
+            <div class="col-7" style="margin: 5%;">
+                <h3>{{ selling.title }}</h3>
+                <h1 style="display: flex">{{ selling.price|intcomma }}<p style="font-size:20px; margin-top:3%;">원</p></h1>
+                <hr style="margin-right: 20%; margin-top: -3%;">
+                <div style="display: flex;">
+                    <img style="margin-left:10px" id="heart_img" src="/static/css/img/heart0.png" width="16" height="16" alt="상품 상태 아이콘">
+                    <p id="jjim" style="margin-top: -5px;">{{ selling.jjim_count }}</p>
+                    <img style="margin-left:10px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAaCAYAAADMp76xAAAAAXNSR0IArs4c6QAABAdJREFUWAm9mFtIFFEYx9tZ11UW1tLoaoGEPShqq3ahgogyIgnqQXqIgih6qKgEH4JIqCgIIoowIrSn6i0irOxCQdAN7wb2IiSlSUZuGJGyumu/b9lZZo8zs7ObdeBwvvNd/uc/53zznWFcs9Js7e3tczVNWzs1NbUKiErGfJfLNYcxVyCRg8g/GAeZdiC3eTyeN2VlZd/Enm5zpRLY09Pjm5yc3EnMbghUMbpTiYd8BP8X9Dt+v/9uYWHhz1TixdcR4YGBgezh4eFD+J+gz5XAGWijYFzKycm5nArxpIQ5+hqAr9AXzgBJM4ggqXWyvLz8uplR1VkShmgOR3iVo9+jBv2LOWs9pu+H+JAdvilhyC4j6AldxqSNhT7g1Oh2u59mZWV9loDx8fGl4XB4C+IBHrpIdA7ad7C2V1RUvLPynUa4u7s7wIvVQsB8qyCDfgK5jgUaWChs0MdFyLo7OjoOo7hI98QN1sJvsHaB+cDMJYFwV1fXCnblJY5+M2dFN8GOVgcCgWeK3nQKdhXYDzE6IR2GdA2k76lgmq7o7OxcBGAzcydkJazOKVlxjvnWieyguTmZ25y21PiEFt3h/v7+rJGRkddYyhOsFhOe/gMvR6lVGliEzZL0YGPep5DTw16vd2VJScmAjhnd4WAweBaFI7KxwEaVLCQyIHOafB2ULrLo9IVkjMU0GnVJ5PmhUOim0UejIqwGuNaoTCZLNVB9yNFTkUikHqzF0kUWnepnFqv6GOdgbWYDDuo6jaduYOLWFU5Gvgk+qX4A73ei08ue6ms3B/ui3LbiozExLUd2AOxSQnWx850h2+f8/PyQYGksfoRxMhVguRRUf06qyYnOLFaNM87BjdAP0KMbq1Fu2phcMDolk2M3WIIbOGf5JjgD1hfpIosuwYmJWazqo8yvGG++6NH29vZmjo2NPcdxveJsOoXQ/yprXcKpsrLyt04kWtaKi4tDPp9vB0T6dIPdSN4Xxa5bO7dpNomR2GkGEwVchjIyMrYbyYpbwstDGSqkHL0CdJ4Jhqr6l1ezfNhvhGynumj8ahYDOSc7vI7+UeZJmke+DajjR3lAy7IoNvERX/CcfEd8pRBsMCMrfBJ2WCdITi8gpx8xD+g6u1FyGvtff15KSlLjt5aWllpumClhIdfX1+cdHR09D0gtu2TpZ/cgKdqasrOzj/M+/bKLS0qEb4JN5PU1QJbbAaVrY0M+UQKPkY73nWAkJSwgkoe84fsQ6+lLRDcD7Stkz3FV35Aq5RTPEWEdLFavt7HQXnTVPEimbnM4ThDbQtytvLy85oKCgnGHcXG3lAjHoxAogbNJlTWIq6VDQn6k5DLmih+y/EgJMsqPlFaOvZW3/y0v1A+xp9v+ADhPuomDsZuZAAAAAElFTkSuQmCC" width="21" height="13" alt="상품 상태 아이콘">
+                    <p style="margin-top: -5px;">{{ selling.count }}</p>
+                    <img style="margin-left:10px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC" width="16" height="16" alt="상품 상태 아이콘">
+                    <p style="margin-top: -5px;">{{ selling.upload_time|date:"y.m.d" }} </p>
+                </div>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th scope="row">상품상태</th>
+                            <td>
+                                {% if selling.conditions == 1 %}새상품{% endif %}
+                                {% if selling.conditions == 0 %}중고{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">교환여부</th>
+                            <td>
+                                {% if selling.trade == 1 %}가능{% endif %}
+                                {% if selling.trade == 0 %}불가능{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">가격제안</th>
+                            <td>
+                                {% if selling.price_propose == 1 %}가능{% endif %}
+                                {% if selling.price_propose == 0 %}불가능{% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
+                
+                <button id="heart_button" type="button" class="btn btn-secondary"style="width: 90px;" onclick="ajxa_wl(document.getElementById('heart').innerText, document.getElementById('no').innerText)" >찜</button>
+                <button type="button" class="btn btn-warning" style="width: 90px;">뚜벅톡</button>
+                <button id="buy_button1" onclick="purchase()" type="button" class="btn btn-danger" style="width: 91px;">바로구매</button>
+            </div>
+        </div>
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197929505_1_1661871666_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196545385_1_1662004784_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/198010325_1_1661952980_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197824169_1_1661778334_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196307080_1_1660390073_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197338043_1_1661779416_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197963051_2_1661921788_w856.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196545385_1_1662004784_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196701910_1_1661663669_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/195111025_1_1661741795_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197239601_1_1661598119_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196206772_1_1660910314_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/195475876_1_1662040859_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197728237_1_1661929560_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197721864_1_1661686743_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197655106_1_1661619801_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/197824588_1_1661778559_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                        <div class="col-2">
+                            <img src="https://media.bunjang.co.kr/product/196544426_1_1661260326_w310.jpg" class="img-thumbnail" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="row">
+        </div>
+
+        <div class="row" style="padding: 48px 0px 16px;">
+            <div class="col-8">
+                <div class="row">
+                    상품정보
+                </div>
+                <hr>
+                <div class="row">
+                    <script>document.write(document.getElementById('contents').innerText);</script>
+                    <br><br>
+                    {% for i in files %}
+                        <a href="/media/{{i.upload_file}}" target="_blank">
+                            <img src="/media/{{i.upload_file}}" style="width: 100%; height: 100%;" alt="">
+                        </a>
+                    {% endfor %}
+                </div>
+                <div class="row" style="text-align : center;">
+                    <div class="row" style="margin-top: 5%; margin-bottom: 5%;">
+                        <div id="map" style="width:100%;height:350px;"></div>
+                        
+                    </div>
+                    <div class="col">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAkCAYAAADo6zjiAAAAAXNSR0IArs4c6QAAANJJREFUWAntWEEKxCAMjGJ70h/4Aq/+/wm99gX9gTcVujsLe1pQoWj2kJyERCeZkNCOut9WSqHruiilRDjPtH3fyVpL3nvato1Uzvk+z5NqrTNxf942xlAIgTQqXw2ObIAJbA3auQzYenbPW8UBW7cCVvgkAXYGTK/PMcZeSNN/HEfT//8M9CpoljfgZGdAEhAGZA90GZA9MLDMHoXIGLIz0J0C+R6QPfBoyAcus08BfwL4R+cyaAXaOceF/xEqNJQKiAWrDZjAVqslGrQcrH8lmhfQ0lJsYYep+gAAAABJRU5ErkJggg==" width="20" height="20" alt="카테고리 아이콘"><br>
+                        <a href="" style="color: #333; text-decoration: none;">카테고리</a>
+                    </div>
+                    <div class="col">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAkCAYAAACaJFpUAAAAAXNSR0IArs4c6QAAAbpJREFUSA3tVzFSwkAU3c2EggKK1BxAoRAmXIKjYAkztsYDaCk34Ara6QEIVKAdDWoFDQUFDPF9hgxZJOEFRhvzZ3aS3f/ef5v3N0zQKmX0er0LrfWD0IIgaNXr9fc0JTQLHg6HzmKxuAX+GsPe8la4Pubz+btKpTLbriVejgriKezBYNBcr9ceKjkx1WaWZXm1Wq2Dp5dNxEaiYL/fb0DwHuMytkIkAbE3TFuu6z5Hlo3bg4K+74uACDUMNDmB8BOgbQjLBowwBLd98oBoYoR9MggpJmJtB/31ov3dCJJ9SqFlQI3+6rR9MkqlmEh/Mdoa71XA8nK5nCqVSqpQKGwo8/lcTSYTtVwu2RJ8n0SsXC4r29611nEcVSwW1Wg0okUtdmvyZFGxkCdrkmODFgxtPFQ4KbePpwX3iafOaUE5IHGRlNvn0IJyGlernz+TsiY5NnZH7ghDjr6cxj97LWQ/Ijoej49sLTlNW5pchs9mgrxXJDKzlDSKh2WW8l6RyMxS0ige9j8s/eINOQ+JD+FPsfTlvDI8G38pXi18V96AMuVpJyOnomVVq9UP3FyhTBfjN+yVml3REK1volCeXrtQ40gAAAAASUVORK5CYII="width="20" height="20" alt="상품태그 아이콘"><br>
+                        <a href="" style="color: #333; text-decoration: none;">상품태그</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    판매자정보
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4" style="margin-bottom: 16px;">
+                        <a href="" style="color: #333; text-decoration: none;"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxjaXJjbGUgZmlsbD0iI0ZBRkFGQSIgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIi8+CiAgICAgICAgPHBhdGggZD0iTTM2LjIxNiA0MS42ODNjLjI0OC0xLjkzMS40OTgtMy44NjIuNzUtNS43OTRoNi43OWwtLjI4MyA1LjUzN2MwIC4wMTcuMDA3LjAzNC4wMDcuMDUxLS4wMDIuMDEtLjAwMi4wMi0uMDAyLjAzLS4wOTggMS44NzYtMS44OTcgMy4zOTItNC4wMzUgMy4zOTItMS4wNjYgMC0yLjAxOC0uMzktMi42MTUtMS4wNzItLjUxLS41ODUtLjcyMi0xLjMyNS0uNjEyLTIuMTQ0em04Ljg4OCA0LjA3OGMxLjIyNCAxLjI4OSAzLjAwOSAyLjAyOCA0Ljg5IDIuMDI4IDEuODkgMCAzLjY3NC0uNzQgNC45LTIuMDMzLjEwNy0uMTEyLjIwNy0uMjI4LjMwNC0uMzQ1IDEuMjggMS40NDcgMy4yMTcgMi4zNzggNS4zNSAyLjM3OC4xMTIgMCAuMjE2LS4wMjcuMzI4LS4wMzJWNjMuNkgzOS4xMTVWNDcuNzU3Yy4xMTIuMDA1LjIxNS4wMzIuMzI4LjAzMiAyLjEzMyAwIDQuMDcxLS45MzEgNS4zNTEtMi4zOC4wOTkuMTIxLjIuMjM4LjMxLjM1MnptMS41NDUtOS44NzJoNi42OThsLjI4MiA1LjYxOWMwIC4wMTUtLjAwNy4wMjctLjAwNy4wNGwuMDA0LjA4NmEyLjkzOSAyLjkzOSAwIDAgMS0uODI2IDIuMTMyYy0xLjM2NyAxLjQ0LTQuMjMzIDEuNDQxLTUuNjA0LjAwM2EyLjk1IDIuOTUgMCAwIDEtLjgzLTIuMTQybC4wMDQtLjA3OGMwLS4wMTYtLjAwOC0uMDMtLjAwOC0uMDQ4bC4yODctNS42MTJ6bTE2LjM3NiAwYy4yNTIgMS45MzMuNTAyIDMuODY1Ljc1MyA1LjgwNC4xMDkuODEtLjEwNCAxLjU0Ny0uNjE0IDIuMTMyLS41OTYuNjgzLTEuNTUgMS4wNzQtMi42MTYgMS4wNzQtMi4xMzcgMC0zLjkzMi0xLjUxNC00LjAzNC0zLjM4OGEuMzU5LjM1OSAwIDAgMC0uMDAzLS4wNDRjMC0uMDE1LjAwNi0uMDI3LjAwNi0uMDRsLS4yNzgtNS41MzhoNi43ODZ6TTM2LjIyNiA0Ni45NDZ2MTguMDk4YzAgLjc5OC42NDYgMS40NDUgMS40NDQgMS40NDVoMjQuNjVjLjc5OSAwIDEuNDQ1LS42NDcgMS40NDUtMS40NDVWNDYuOTQ2Yy41OS0uMzI4IDEuMTM3LS43MTkgMS41NzUtMS4yMiAxLjA2MS0xLjIxNCAxLjUyMi0yLjc4NSAxLjMwMS00LjQxLS4zLTIuMzU1LS42MDctNC43MDctLjkxOC03LjA2YTEuNDQzIDEuNDQzIDAgMCAwLTEuNDMxLTEuMjU3SDM1LjY5OWMtLjcyNCAwLTEuMzM4LjUzOC0xLjQzMSAxLjI1Ny0uMzExIDIuMzU0LS42MTcgNC43MDctLjkxNiA3LjA1LS4yMjEgMS42MzcuMjQgMy4yMDggMS4zIDQuNDIxLjQzOS41MDIuOTg0Ljg5MyAxLjU3NCAxLjIyeiIgZmlsbD0iI0NDQyIvPgogICAgPC9nPgo8L3N2Zz4K" width="70" height="70" alt="프로필이미지"></a>
+                    </div>
+                    <div class="col-8" style="margin-bottom: 16px;">
+                        <div class="row"><a href="" style="color: rgb(142, 142, 142); text-decoration: none;">판매자 : {{ member.nickname }}</a></div>
+                        <div class="col"><a href="" style="color: rgb(142, 142, 142); text-decoration: none;">상품 {{ member.bs_count }}</a></div>
+                    </div>
+                    <div class="row" style="text-align : center;">
+                        <div class="col-6"><a href=""><img width="120px" src="https://media.bunjang.co.kr/product/198633455_1_1662531632_w240_h192.jpg"></a></div>
+                        <div class="col-6"><a href=""><img width="120px" src="https://media.bunjang.co.kr/product/198635378_1_1662532899_w240_h192.jpg"></a></div>
+                        <a href="" style="color: rgb(218, 24, 24); text-decoration: none; margin-top: 10px; ">상품더보기</a>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="r" style="text-align: center;height: 27px;margin-top: -12px;">상품후기</div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-2">
+                                <img width="50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxjaXJjbGUgZmlsbD0iI0ZBRkFGQSIgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIi8+CiAgICAgICAgPHBhdGggZD0iTTM2LjIxNiA0MS42ODNjLjI0OC0xLjkzMS40OTgtMy44NjIuNzUtNS43OTRoNi43OWwtLjI4MyA1LjUzN2MwIC4wMTcuMDA3LjAzNC4wMDcuMDUxLS4wMDIuMDEtLjAwMi4wMi0uMDAyLjAzLS4wOTggMS44NzYtMS44OTcgMy4zOTItNC4wMzUgMy4zOTItMS4wNjYgMC0yLjAxOC0uMzktMi42MTUtMS4wNzItLjUxLS41ODUtLjcyMi0xLjMyNS0uNjEyLTIuMTQ0em04Ljg4OCA0LjA3OGMxLjIyNCAxLjI4OSAzLjAwOSAyLjAyOCA0Ljg5IDIuMDI4IDEuODkgMCAzLjY3NC0uNzQgNC45LTIuMDMzLjEwNy0uMTEyLjIwNy0uMjI4LjMwNC0uMzQ1IDEuMjggMS40NDcgMy4yMTcgMi4zNzggNS4zNSAyLjM3OC4xMTIgMCAuMjE2LS4wMjcuMzI4LS4wMzJWNjMuNkgzOS4xMTVWNDcuNzU3Yy4xMTIuMDA1LjIxNS4wMzIuMzI4LjAzMiAyLjEzMyAwIDQuMDcxLS45MzEgNS4zNTEtMi4zOC4wOTkuMTIxLjIuMjM4LjMxLjM1MnptMS41NDUtOS44NzJoNi42OThsLjI4MiA1LjYxOWMwIC4wMTUtLjAwNy4wMjctLjAwNy4wNGwuMDA0LjA4NmEyLjkzOSAyLjkzOSAwIDAgMS0uODI2IDIuMTMyYy0xLjM2NyAxLjQ0LTQuMjMzIDEuNDQxLTUuNjA0LjAwM2EyLjk1IDIuOTUgMCAwIDEtLjgzLTIuMTQybC4wMDQtLjA3OGMwLS4wMTYtLjAwOC0uMDMtLjAwOC0uMDQ4bC4yODctNS42MTJ6bTE2LjM3NiAwYy4yNTIgMS45MzMuNTAyIDMuODY1Ljc1MyA1LjgwNC4xMDkuODEtLjEwNCAxLjU0Ny0uNjE0IDIuMTMyLS41OTYuNjgzLTEuNTUgMS4wNzQtMi42MTYgMS4wNzQtMi4xMzcgMC0zLjkzMi0xLjUxNC00LjAzNC0zLjM4OGEuMzU5LjM1OSAwIDAgMC0uMDAzLS4wNDRjMC0uMDE1LjAwNi0uMDI3LjAwNi0uMDRsLS4yNzgtNS41MzhoNi43ODZ6TTM2LjIyNiA0Ni45NDZ2MTguMDk4YzAgLjc5OC42NDYgMS40NDUgMS40NDQgMS40NDVoMjQuNjVjLjc5OSAwIDEuNDQ1LS42NDcgMS40NDUtMS40NDVWNDYuOTQ2Yy41OS0uMzI4IDEuMTM3LS43MTkgMS41NzUtMS4yMiAxLjA2MS0xLjIxNCAxLjUyMi0yLjc4NSAxLjMwMS00LjQxLS4zLTIuMzU1LS42MDctNC43MDctLjkxOC03LjA2YTEuNDQzIDEuNDQzIDAgMCAwLTEuNDMxLTEuMjU3SDM1LjY5OWMtLjcyNCAwLTEuMzM4LjUzOC0xLjQzMSAxLjI1Ny0uMzExIDIuMzU0LS42MTcgNC43MDctLjkxNiA3LjA1LS4yMjEgMS42MzcuMjQgMy4yMDggMS4zIDQuNDIxLjQzOS41MDIuOTg0Ljg5MyAxLjU3NCAxLjIyeiIgZmlsbD0iI0NDQyIvPgogICAgPC9nPgo8L3N2Zz4K">
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row">닉네임</div>
+                                    </div>
+                                    <div class="col-4">
+                                        2주전
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    ★★★★★
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                거래 확실합니다 상품도 굿굿굿ㅡㅡㅡ 좋와요
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <img width="50" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxjaXJjbGUgZmlsbD0iI0ZBRkFGQSIgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIi8+CiAgICAgICAgPHBhdGggZD0iTTM2LjIxNiA0MS42ODNjLjI0OC0xLjkzMS40OTgtMy44NjIuNzUtNS43OTRoNi43OWwtLjI4MyA1LjUzN2MwIC4wMTcuMDA3LjAzNC4wMDcuMDUxLS4wMDIuMDEtLjAwMi4wMi0uMDAyLjAzLS4wOTggMS44NzYtMS44OTcgMy4zOTItNC4wMzUgMy4zOTItMS4wNjYgMC0yLjAxOC0uMzktMi42MTUtMS4wNzItLjUxLS41ODUtLjcyMi0xLjMyNS0uNjEyLTIuMTQ0em04Ljg4OCA0LjA3OGMxLjIyNCAxLjI4OSAzLjAwOSAyLjAyOCA0Ljg5IDIuMDI4IDEuODkgMCAzLjY3NC0uNzQgNC45LTIuMDMzLjEwNy0uMTEyLjIwNy0uMjI4LjMwNC0uMzQ1IDEuMjggMS40NDcgMy4yMTcgMi4zNzggNS4zNSAyLjM3OC4xMTIgMCAuMjE2LS4wMjcuMzI4LS4wMzJWNjMuNkgzOS4xMTVWNDcuNzU3Yy4xMTIuMDA1LjIxNS4wMzIuMzI4LjAzMiAyLjEzMyAwIDQuMDcxLS45MzEgNS4zNTEtMi4zOC4wOTkuMTIxLjIuMjM4LjMxLjM1MnptMS41NDUtOS44NzJoNi42OThsLjI4MiA1LjYxOWMwIC4wMTUtLjAwNy4wMjctLjAwNy4wNGwuMDA0LjA4NmEyLjkzOSAyLjkzOSAwIDAgMS0uODI2IDIuMTMyYy0xLjM2NyAxLjQ0LTQuMjMzIDEuNDQxLTUuNjA0LjAwM2EyLjk1IDIuOTUgMCAwIDEtLjgzLTIuMTQybC4wMDQtLjA3OGMwLS4wMTYtLjAwOC0uMDMtLjAwOC0uMDQ4bC4yODctNS42MTJ6bTE2LjM3NiAwYy4yNTIgMS45MzMuNTAyIDMuODY1Ljc1MyA1LjgwNC4xMDkuODEtLjEwNCAxLjU0Ny0uNjE0IDIuMTMyLS41OTYuNjgzLTEuNTUgMS4wNzQtMi42MTYgMS4wNzQtMi4xMzcgMC0zLjkzMi0xLjUxNC00LjAzNC0zLjM4OGEuMzU5LjM1OSAwIDAgMC0uMDAzLS4wNDRjMC0uMDE1LjAwNi0uMDI3LjAwNi0uMDRsLS4yNzgtNS41MzhoNi43ODZ6TTM2LjIyNiA0Ni45NDZ2MTguMDk4YzAgLjc5OC42NDYgMS40NDUgMS40NDQgMS40NDVoMjQuNjVjLjc5OSAwIDEuNDQ1LS42NDcgMS40NDUtMS40NDVWNDYuOTQ2Yy41OS0uMzI4IDEuMTM3LS43MTkgMS41NzUtMS4yMiAxLjA2MS0xLjIxNCAxLjUyMi0yLjc4NSAxLjMwMS00LjQxLS4zLTIuMzU1LS42MDctNC43MDctLjkxOC03LjA2YTEuNDQzIDEuNDQzIDAgMCAwLTEuNDMxLTEuMjU3SDM1LjY5OWMtLjcyNCAwLTEuMzM4LjUzOC0xLjQzMSAxLjI1Ny0uMzExIDIuMzU0LS42MTcgNC43MDctLjkxNiA3LjA1LS4yMjEgMS42MzcuMjQgMy4yMDggMS4zIDQuNDIxLjQzOS41MDIuOTg0Ljg5MyAxLjU3NCAxLjIyeiIgZmlsbD0iI0NDQyIvPgogICAgPC9nPgo8L3N2Zz4K">
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row">닉네임2</div>
+                                    </div>
+                                    <div class="col-4">
+                                        2주전
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    ★★★★★
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                물건 깨끗하고 이뻐요~배송도 빠르고 포장도 깔끔했습니다.
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="text-align : center; margin-top: 13px;">
+                        <hr>
+                        <div style="text-align: center;height: 27px;margin-top: -12px;">
+                            <a style="color: rgb(142, 142, 142); text-decoration: none;" href="">상품후기 더보기 ></a>
+                        </div>
+                        <hr>
+                    </div>
+                    <div  style="text-align : center;">
+                    <button type="button" class="btn btn-warning" style="width: 90px;">뚜벅톡</button>
+                    <button id="buy_button2" onclick="purchase()" type="button" class="btn btn-danger" style="width: 90px;">바로구매</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        if(document.getElementById('heart').innerText == 'True'){   // 페이지 로딩 후 실행하는곳
+            heart_img.src = "/static/css/img/heart1.png"            // 하트 이미지 변경
+            document.querySelector('#heart_button').style.backgroundColor = '#0d6efd'   // 버튼 컬러 변경
+            document.querySelector('#heart_button').style.borderColor = '#0d6efd'       // 테두리 컬러 변경
+        }
+        if(document.getElementById('board_status').innerText == '1'){   // 페이지 로딩 후 실행하는곳
+            document.getElementById('buy_button1').innerText = '구매완료'
+            document.getElementById('buy_button2').innerText = '구매완료'
+        }
+        
+        function ajxa_wl(heart, no){                    // 찜버튼 누르면 작동.
+            $.ajax({
+                type:'get',                             // get
+                url: '/board/heart/',                   // 호출 URL
+                data: {'heart' : heart, 'no' : no},     // 파라미터 정보
+
+                success: (res)=>{                       // 리턴값
+                    if(res.heart){
+                        heart_img.src = "/static/css/img/heart1.png"
+                        document.querySelector('#heart_button').style.backgroundColor = '#0d6efd'   // 리턴 후 버튼 컬러 변경
+                        document.querySelector('#heart_button').style.borderColor = '#0d6efd'       // 리턴 후 테두리 컬러 변경
+                        document.getElementById('heart').innerText = "True"                         // 리턴 후 좋아요 상태 변경
+                    }
+                    else{
+                        heart_img.src = "/static/css/img/heart0.png"
+                        document.querySelector('#heart_button').style.backgroundColor = '#6c757d'
+                        document.querySelector('#heart_button').style.borderColor = '#6c757d'
+                        document.getElementById('heart').innerText = "False"
+                    }
+                    document.querySelector('#jjim').innerText = res.jjim        // 좋아요 수 변경
+                },
+            })
+        }
+
+        function purchase(){
+            if(document.getElementById('board_status').innerText != '1'){
+                var result = confirm("구매하시겠습니까??");
+                if(result){
+                    var no = document.getElementById('no').innerText
+                    $.ajax({
+                        type:'get',                 // get
+                        url: '/board/purchase/',    // 호출 URL
+                        data: {no},                 // 파라미터 정보
+                        
+                        success: (res)=>{ // ajxa로 서버 통신 후 받아오는애임. 중요한애!!!!!!!!
+                            if(res.result){
+                                document.getElementById('buy_button1').innerText = '구매완료'
+                                document.getElementById('buy_button2').innerText = '구매완료'
+                            }
+                        }
+                    })
+                }
+            }
+        }
+
+    </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9885818f349db7731fdc9ee7a1120574&libraries=services"></script>
+    <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new kakao.maps.LatLng(x.innerText, y.innerText), // 지도의 중심좌표
+            level: 4 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng(x.innerText, y.innerText); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock %}

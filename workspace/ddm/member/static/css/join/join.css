@@ -1,0 +1,127 @@
+body {
+    background-color: #f1f1f1;
+}
+
+div.join {
+    width:500px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.join-box {
+    width:500px;
+}
+
+.join-culrum {
+    margin-bottom: 8px;
+}
+
+.join-box.birthDay{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.join-box.phoneNumber{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.inputbox {
+    display: block;
+    width: inherit;
+    height: 50px;
+    border: 1px solid #ababab;
+    border-radius: 5px;
+    padding-left: 12px;
+    padding-bottom: 4px;
+}
+
+.inputbox::placeholder{
+    font-size: 12px;
+    color: #ababab;
+}
+
+.inputbox:focus {
+    border: 1px solid #8ECA5D;
+    outline: 1px solid  #8ECA5D;
+}
+
+.inputbox.year,
+.inputbox.date,
+.form-select.month{
+    width: 160px;
+    height: 50px;
+    border: 1px solid #ababab;
+}
+
+.form-select.month:focus,
+.form-select.month:active {
+    border: 1px solid #8ECA5D;
+    outline: 1px solid  #8ECA5D;
+    box-shadow: none !important
+}
+
+.inputbox.phNum{
+    width: 360px;
+    margin: 0 0 10px;
+}
+
+
+span.inessential {
+    font-size: 13.5px;
+    line-height: 16px;
+    color: #ABABAB;
+}
+
+input.inputbox.hidden {
+    display: none;
+}
+
+.msg {
+    margin: 7px 0;
+    content: '&nbsp';
+}
+
+.msg.alrt {
+    font-size: 12px;
+    padding-left: 5px;
+    margin: 10px 0;
+    color: red;
+}
+
+.msg.pass {
+    margin: 10px 0;
+    font-size: 12px;
+    color: #5EB318;
+}
+
+input.btn-primary,
+input.btn-primary:hover,
+input.btn-primary:active,
+input.btn-primary:focus,
+input.btn-primary:visited {
+    width:500px;
+    height: 55px;
+    border: 0px;
+    background-color: #8ECA5D;
+    font-size: 20px;
+    box-shadow: none !important
+}
+
+input.btn-primary.userCheck,
+input.btn-primary.userCheck:hover,
+input.btn-primary.userCheck:active,
+input.btn-primary.userCheck:focus,
+input.btn-primary.userCheck:visited {
+    width: 120px;
+    height: 50px;
+    border: 0px;
+    background-color: #8ECA5D;
+    font-size: 15px;
+    box-shadow: none !important
+}

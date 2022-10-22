@@ -1,0 +1,321 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/consumer_service.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <title>자주 묻는 질문</title>
+
+</head>
+<style>
+  a{
+    text-decoration: none;
+    color: #333;
+  }
+  .accordion-button:focus {
+      z-index: 3;
+      border-color: none;
+      outline: 0;
+      box-shadow:none;
+  }
+  .accordion-item {
+      background-color: #fff;
+      border-bottom: 1px solid rgba(0,0,0,.125);
+      border-top:none;
+      border-right:none;
+      border-left:none;
+  }
+  .accordion-button:focus {
+        z-index: 3;
+        border-color: none;
+        outline: 0;
+        box-shadow: 0 0 0 .25remrgba(13,110,253,.25);
+    }
+
+    .accordion-button:not(.collapsed) {
+        color: #333;
+        background-color: #fff;
+        box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+    }
+    .accordion-body{
+    font-size: 19px;
+    }
+    .accordion-button{
+    font-weight: bold;
+    font-size: 19px;
+    }
+</style>
+<body>
+  <div id="layout">
+    <main class="main1">
+      <h1 class="main1_1">
+        자주 묻는 질문
+      </h1></main>
+      <div class="main1_2">
+        <ul class="main1_3">
+          <li class="sub1">
+            <a class="sub1_1" href="/qna/consumer/">자주 묻는 질문</a>
+          </li>
+          <li class="sub1">
+            <a class="sub1_1"  href="/qna/question/">1:1 문의</a>
+          </li>
+        </ul>
+      <div class="main1_2">
+        <ul class="main1_3">
+        </ul>
+      </div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                판매금지 물품
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              가품∙이미테이션 (상표권, 저작권 침해 물품, 특정 브랜드의 스타일을 모방한 물품)<br>
+              주류(무알콜 주류 포함), 담배, 전자담배, 모의총포 및 그 부속품 일체 (ex. 라이터, 비비탄 총알 등 청소년 유해물건)<br>
+              경유, LPG, 휘발유 등의 유류 거래<br>
+              반려동물, 생명이 있는 동물·곤충 (무료분양, 열대어 포함)<br>
+              한약∙의약품 ∙ 의료기기∙마약류 (청소년 유해약물∙유해화학물질)<br>
+              반영구 화장 등 면허나 자격 없는 자의 불법 유사 의료 행위 홍보/모집글<br>
+              수제 음식물∙건강기능식품 : 직접 만들거나 가공한 음식, 건강기능식품(지자체 및 영업 신고를 한 사람만 판매할 수 있음)<br>
+              유통기한이 지난 제품, 포장이 훼손되거나 개봉된 식품<br>
+              도수 있는 안경∙선글라스 (온라인 판매 불법)<br>
+              콘택트 렌즈, 써클 렌즈 (온라인 판매 불법)<br>
+              반복/다량 판매하는 핸드메이드 제품<br>
+              화장품 샘플 (온라인 판매 불법)<br>
+              화장품제조업 및 화장품책임판매업의 등록 없이 직접 제조한 화장품<br>
+              완제품이 아닌 직접 소분한 화장품<br>
+              화장품법에 따른 라벨 및 기재사항이 없는 화장품<br>
+              음란물 (청소년 유해 매체물)<br>
+              촬영 여부를 상대방이 알기 어려운 카메라 혹은 그밖에 유사한 기능을 갖춘 기계장치(불법 카메라 등)<br>
+              성생활용품<br>
+              개인정보 (게임 계정, 추천인 계정 포함)<br>
+              조건부 무료나눔<br>
+              렌탈 제품<br>
+              헌혈증 (무료나눔만 가능)<br>
+              초대권 (무료로 받은 초대권을 유료로 판매하는 경우 / 무료나눔만 가능)<br>
+              군용품∙군마트용품∙경찰용품∙도검∙화약류∙분사기∙전자충격기∙석궁∙활 (안전확인∙안전인증표시 없는 전기용품 및 단전지 또는 공산품)<br>
+              USD 1000달러 이상의 외환 거래나 매매차익을 목적으로 하는 반복적인 외환 거래 (매매차익을 목적으로 하지 않는 1000달러 미만의 외환 거래는 허용) <br>
+              나라미, 정부 지원 생필품, 지역상품권, 문화누리카드 등 법률에 의해 재판매 할 수 없는 물품<br>
+              종량제봉투<br>
+              통신사 데이터, 인터넷 상품<br>
+              반입한 날로부터 1년 이상 경과하지 않은 전파인증이 면제된 해외직구 전자제품을 판매하는 행위<br>
+              스스로 사용할 목적으로 세금을 면제받은 해외직구 물품을 국내에서 재판매 하는 행위<br>
+              낚시로 포획한 수산물 거래 행위<br>
+              암표매매 행위<br>
+              종자 (삽수,어린묘목 등)<br>
+              100만 원 이상 금 제품 (골드바, 금괴, 금으로 제작된 목걸이, 팔찌, 귀걸이 등)<br>
+              리콜로 인한 회수/폐기 물품<br>
+              이외 법률을 위반하는 모든 물품<br>
+              뚜벅마켓 광고주센터에 등록되지 않은 모든 홍보/광고<br><br>
+              *판매 금지 물품은 나눔, 교환, 삽니다 게시글 또한 허용되지 않습니다.<br>
+              *뚜벅마켓은 현행법령상 판매가 허용되지 않는 불법상품 및 유해 상품을 판매하는 것은 제한하고 있어요. 판매 자격을 갖췄더라도 개인 간 거래를 지향하는 당근마켓에서는 해당 물품을 판매할 수 없어요.<br>
+              *현행법을 위반할 경우 처벌 받을 수 있습니다. 이 점 유의해주시길 바랍니다.<br><br>
+              다함께 공정하고 따뜻한 거래 문화를 만들어요. 🙂<br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              당근마켓에서 지켜야 할 매너
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              기본 매너<br><br>
+              • 서로 존중해요. 우리 존댓말로 대화해요.<br>
+              • 모두의 시간은 소중합니다. 시간 약속을 꼭 지켜주세요.<br>
+              • 절대로 중간에 연락 끊기는 일이 없도록 해요. (잠수는 절대 안 돼요!)<br>
+              • 따뜻한 감사 인사로 마무리를 지어요.<br>
+              • 어떤 상황에서도 욕설, 비방, 명예훼손 등의 언행은 지양해주세요.<br>
+              • 늦은 시간 채팅은 부담스러울 수 있어요. 특히 새벽 시간에는 채팅을 자제해주세요.<br> 
+              • 택배 거래는 부득이한 경우에만 요청하시고 가능한 한 직거래로 해주세요.<br>
+
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              특정 사용자의 게시글이 보이지 않아요
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              뚜벅마켓의 운영정책을 반복적으로 어기거나 이윤 추구를 목적으로 거래하는 사용자는 게시글 노출이 제한될 수 있습니다.<br>
+              상세한 제재 기준은 공개하지 않는 점 이해 바랍니다 🙂 
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+              중고거래 게시판 거래 및 환불 정책
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              환불 관련 문제가 생겼을 때, 판매자의 실수나 잘못이 없는 다음과 같은 상황이라면 거부할 권리가 있습니다. <br><br>
+
+              단순한 변심으로 인한 환불 요청 <br>
+              객관적인 정보가 아닌 주관적인 판단에 의한 환불 요청(예: M사이즈 명시된 제품을 구매 후, 맞지 않는다고 환불 요청)<br>
+              판매글에 명시한 내용을 몰랐다는 이유로 환불 요청<br>
+              거래 후 오랜 기간이 지난 후에 환불 요청(예: 구매 후 한 달이 지난 시점에서 환불 요청)<br>
+              위 제시한 상황 외에 명백한 잘못이 구매자에게 있는 경우<br><br>
+
+              판매자의 잘못이 명백한 다음과 같은 상황에서는 환불을 해주셔야 해요.<br><br>
+
+              판매글(사진, 설명, 채팅 내용 등)과 실제 물건이 객관적으로 상이한 경우<br>
+              판매 물품에 주요 하자가 있음에도 불구하고 판매글에 명확히 밝히지 않고 판매한 경우<br>
+              배송 과정에서 분실, 파손된 경우 (택배사 잘못으로 택배사로부터 보상 가능)<br>
+              (환불할 물품을 양도받으면 거래대금을 구매자에게 바로 보내주세요. 입금을 미룬다면 '거래 불이행' 사유로 이용 제한될 수 있습니다.)<br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+              사진을 첨부하여 판매글을 작성하고 싶어요. 어떻게 하나요? (판매글 작성하는 방법)
+            </button>
+          </h2>
+          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              판매글 작성하는 방법<br><br>
+              [홈 화면의 '+' 버튼 클릭 > 내 물건 팔기] 에서 판매글을 자유롭게 작성해주시면 돼요.
+
+              <img src="/static/img/consumer_service_1.jpg" class="card-img-2" alt="our_img"><br><br>
+
+              사진 첨부하는 방법<br><br>
+              중고거래 글쓰기 화면에서 카메라 아이콘을 눌러 보세요. 사진을 첨부할 수 있어요.<br>
+              '앨범에서 선택' 버튼을 클릭하면 내 휴대폰에 저장된 사진을 첨부할 수 있어요.<br>
+              '카메라 촬영' 버튼을 클릭하면 지금 바로 촬영한 사진을 첨부할 수 있어요.<br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSix">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+              프로필 옆에 표시되는 매너온도와 웃는 얼굴에 대해서 알려주세요
+            </button>
+          </h2>
+          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              거래 상대방의 프로필에서 매너온도를 확인해보세요.<br>
+              매너온도는 36.5도에서 시작해서 최대 99도까지 올라갈 수 있어요.<br>
+              따뜻한 거래를 많이 할수록 온도가 올라가고 환하게 웃는 얼굴로 변한답니다.<br>
+              만약 상대방의 매너온도가 36.5도보다 낮다면 상대방의 프로필에서 재거래희망률, 거래 후기 등을 꼼꼼히 확인해보세요.<br>
+              매너온도는 뚜벅마켓 운영정책을 위반하여 경고를 받았거나 다른 사용자로부터 비매너 평가를 받았을 때 낮아져요.<br>
+              예를 들어서 거래 관련 분쟁이 자주 일어나거나 거래 약속을 자주 어기는 사용자라면 매너온도가 점점 낮아지고 찡그린 얼굴로 변해요.<br>
+              매너온도가 낮고 찡그린 얼굴이라면 신중히 거래해주세요.<br>
+              매너온도와 얼굴은 이렇게 변해요. 따뜻한 거래로 환하게 웃는 얼굴을 만들어 보세요. 🙂<br>
+
+              <img src="/static/img/consumer_service_2.jpg" class="card-img-2" alt="our_img"><br><br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSeven">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseThree">
+              비매너 사용자를 만나면 어떻게 해야 하나요? (차단하기, 신고하기)
+            </button>
+          </h2>
+          <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              뚜벅마켓을 이용하면서 기분 좋지 않은 경험을 하셨나요?<br>
+              비매너 사용자를 만났다면 이렇게 대응할 수 있어요.<br><br>
+              매너평가 & 거래후기 남기기<br><br>
+              상대방 프로필의 [오른쪽 상단 점 3개] 를 눌러 보세요. [비매너 평가하기] 가 보일 거예요. 이 버튼을 눌러 비매너 평가를 남겨 주세요.<br>
+              거래한 상대방이라면 채팅방 상단에 있는 [거래후기남기기] 를 눌러서 거래 후기를 남길 수도 있어요.<br>
+              비매너 평가와 부정 거래 후기 모두 상대방에게 전달되지 않아요. (누가 남긴 것인지 상대방은 알 수 없어요.) 그러니 안심하세요.<br>
+              비매너 평가와 부정 거래 후기를 받으면 매너온도가 내려가요. (곧바로 매너온도가 내려가는 것은 아니고 반영까지 3~7일 정도 소요될 수 있어요.)<br>
+              일정 기간 내에 여러 번 비매너 평가와 부정 거래 후기를 받았을 경우 뚜벅마켓 서비스 이용이 제한됩니다.<br>
+              그래서 비매너 평가와 부정 거래 후기를 남기는 것만으로도 상대방에게 충분한 경고가 될 수 있어요.<br><br>
+              차단하기<br><br>
+              사용자 프로필 또는 채팅방의 [오른쪽 상단 점 3개] 를 눌러 보세요. [차단하기] 가 보일 거예요. 해당 버튼을 누르면 차단됩니다.<br>
+              차단된 사용자는 나에게 채팅을 보낼 수 없고 내 게시글을 볼 수 없어요. 또, 내가 차단한 사용자의 게시글은 더는 내 홈 화면에 보이지 않습니다.<br><br>
+              신고하기<br><br>
+              사용자 프로필 또는 채팅방의 [오른쪽 상단 점 3개] 를 눌러 보세요. [신고하기] 가 보일 거예요. 알맞은 항목으로 신고해주시면 됩니다.<br>
+              비매너 행위 뿐만 아니라 당근마켓의 운영정책을 벗어나는 행동을 하는 사용자가 있다면 그냥 지나치지 말고 꼭 신고해주세요.<br>
+              뚜벅마켓은 따뜻한 거래 문화를 만들기 위해 노력하고 있어요. 여러분도 매너평가와 거래 후기로 동참해주세요. 🙂<br><br>
+              우리 함께 따뜻한 당근마켓을 만들어요. <br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingEight">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseThree">
+              키워드 알림을 등록했는데 알림이 안 와요
+            </button>
+          </h2>
+          <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              키워드 알림이 오지 않는 경우를 확인해보세요.<br><br>
+              1. [관심 카테고리 설정] 에서 관심 카테고리로 선택하지 않은 경우<br>
+              예를 들어 [관심 카테고리 설정]에서 '디지털/가전' 카테고리를 선택하지 않았다면 '디지털/가전' 카테고리에 등록된 게시글에 대해서는 키워드 알림이 울리지 않아요.<br>
+              [관심 카테고리 설정] 을 확인해보세요. [마이페이지 > 관심 카테고리 설정] 에서 확인할 수 있어요.<br><br>
+              2. 이전에 작성했던 게시글을 끌어올리기 했을 경우<br>
+              새롭게 작성한 게시글에 대해서만 키워드 알림이 울려요.<br><br>
+              3. 게시글 제목에 키워드가 포함되어 있지 않은 경우<br>
+              게시글의 제목에 키워드가 정확히 매칭되는 경우에만 알림이 울려요.<br>
+              띄어쓰기와 맞춤법이 달라도 울리지 않을 수 있는 점 참고 부탁드릴게요.<br>
+              게시글 제목에 포함될 수 있는 키워드로 등록해주세요.<br><br>
+              예시) 자전거, 유모차, 식탁, 냉장고<br><br>
+              4. 이미 동일한 키워드 알림을 받은 적이 있는 경우<br>
+              키워드 알림은 1번만 발송돼요. 동일한 키워드 알림이라면 1번 이상 발송되지 않는 점 참고해주세요.<br><br>
+              5. 키워드 알림을 끈 상태일 경우<br>
+              [마이페이지 > 앱 설정 > 푸시 알림 설정] 에서 키워드 알림이 꺼져 있는 상태라면 키워드 알림을 켜주세요.<br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingNine">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseThree">
+              100만 원 이상 금 제품은 팔 수 없어요
+            </button>
+          </h2>
+          <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              뚜벅마켓은 동네 이웃 간의 연결을 도와 따뜻하고 활발한 교류가 있는 지역 사회를 만들기 위해 노력하고 있어요.<br>
+              이와 같은 노력의 일환으로 일반적인 중고 거래의 목적에서 크게 벗어나는 물품에 대해서 주기적으로 검토하여 운영정책에 반영할 예정이에요.<br>
+              100만 원 이상 고가의 금 제품의 경우, 화폐와 유사한 역할을 할 수 있는 제품의 특성으로 인하여 일반적인 중고 거래와는 성격이 다릅니다. 이에 2022년 1월 3일 부로 아래와 같은 100만 원 이상 고가의 금 제품들을 판매금지물품으로 지정하고자 합니다.<br><br>
+              골드바, 금괴 등 금으로 이루어진 물품 (100만 원 이상)<br>
+              금으로 제작된 목걸이, 팔찌, 반지, 귀걸이 등 (100만 원 이상)<br>
+              예외 : 금 외 다른 재료(보석 등)를 함께 사용하고 다양한 장식 및 세공이 들어간 액세서리류<br><br>
+              • 판매 금지 물품은 나눔, 교환, 삽니다 게시글 또한 허용되지 않습니다.<br>
+              • 2022년 1월 17일 이후 해당 제품을 지속적으로 게시할 경우, 서비스 이용에 제한이 될 수 있으니 이 점 유의하여 주시기 바랍니다.<br><br>
+              앞으로도 뚜벅마켓은 동네 이웃 간의 따뜻한 연결과 거래 문화를 만들기 위해 노력할게요. 🙂<br>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTen">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseThree">
+              중고거래 게시글 개수에 제한이 있나요?
+            </button>
+          </h2>
+          <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              뚜벅마켓의 중고거래 서비스는 우리집에 숨어 있는 쓸모 있는 물건을 동네 이웃과 거래하고 나누는 공간이에요.<br><br>
+              이런 취지가 잘 반영될 수 있도록 게시글 개수에 제한을 두고 있어요.<br><br>
+              한 사람당 300개의 게시글을 작성할 수 있어요. (게시글의 상태가 판매중인 게시글 기준이에요. 거래완료, 숨김, 삭제된 게시글은 포함되지 않아요.)<br>
+              일주일에 70개의 게시글을 작성할 수 있어요. (매주 월요일을 기준으로 해요. 거래완료, 숨김, 삭제된 게시글을 포함해요.)<br>
+              하루에 20개의 게시글을 작성할 수 있어요. (거래완료, 숨김, 삭제된 게시글을 포함해요.)<br><br>
+              (참고)<br><br>
+              끌어올리기한 게시글은 카운트에 포함하지 않아요.<br>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
+{%endblock%}

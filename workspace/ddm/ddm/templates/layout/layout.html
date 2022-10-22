@@ -1,0 +1,291 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/layout2.css' %}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <title>{% block title %}{%endblock%}</title>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+</head>
+<style>
+    a{
+        text-decoration: none;
+        color: #333;
+    }
+    
+    body{
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+    <div class="main-wrap">
+        <div class="flex-wrap">
+            <div class="header-wrap">
+                <header class="header">
+                    <div class="top1">
+                        <div class="top2">
+                            <div class="flex-top">
+                                <a href="/" style="width: 150px; font-weight: 500; font-size: 28px;">뚜벅마켓</a>
+                                <div class="search-wrap">
+                                    <!-- <button class="searchBtn">
+                                        어떤 상품을 찾으시나요?
+                                    </button> -->
+                                    <input style="color:#333;"onkeyup="enterkey()" id="search_text" class="btn btn-primary searchBtn" type="text" placeholder="">
+                                    <div style="position:absolute; top: 9px; left: 20px;" id="search_text1"></div>
+                                    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+                                    <div class="css-t2c09h">
+                                        <div class="offcanvas-header" style="justify-content: right;">
+                                        </div>
+                                    </div>
+                                    <div class="css-t2c09h">
+                                        <div>
+                                            <div class="css-14470xp">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-1x89rdv"><path stroke="currentColor" d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path stroke="currentColor" d="M21 21L17 17" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <input onkeyup="enterkey()" type="text" id="searchStr" name="상품 검색" placeholder="" autocomplete="off" value="">
+                                            </div>
+                                        </div>
+                                        <div class="css-1wgqh8v">
+                                            <p class="title">최근 검색어</p>
+                                            <p class="noList">최근 검색어가 없습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        ...
+                                    </div>
+                                    </div>
+                                    <div class="search-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-1o7j8sd"><path stroke="currentColor" d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path stroke="currentColor" d="M21 21L17 17" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                    </div>
+                                </div>
+                                <div class="login-wrap">
+                                    {% if request.session.login != None %}
+                                    <div class="login">
+                                        <a href="/member/logout/">
+                                            로그아웃
+                                        </a>
+                                    </div>
+                                    <div class="login">
+                                        <a href="/member/mypage/">
+                                            마이페이지
+                                        </a>
+                                    </div>
+                                    <div class="login">
+                                        <a href="/board/new/">
+                                            판매하기
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="login">
+                                        <a href="/member/login/">
+                                            로그인
+                                        </a>
+                                    </div>
+                                    <div class="signup">
+                                        <a href="/member/agreements/">
+                                            회원가입
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav style="min-width: 300px;">
+                        <div class="nav1" style="font-family: 'Do Hyeon', sans-serif;font-size: 20px;">
+                            <div class="nav2">
+                                <div class="menu1">
+                                    <ul class="menu2">
+                                        <li class="menu3"><a href="/" class="menu-a">홈</a></li>
+                                        <li class="menu3">
+                                            <a id="category-btn" href="/category/" class="menu-a active">카테고리</a>
+                                            <div class="css-1oi3byu">
+                                                <div class="css-18x3p7g"></div>
+                                                <div class="content">
+                                                    <div class="css-goo9i5">
+                                                        <div class="close"></div>
+                                                        <p class="title">CATEGORY</p>
+                                                        <ul>
+                                                            <li>
+                                                                <a class="category-수입명품 css-ysl6er" href="/cate/?main_cate=10&mid_cate=&sub_cate=">수입명품</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-패션의류 css-ysl6er" href="/cate/?main_cate=20&mid_cate=&sub_cate=">패션의류</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-패션잡화 css-ysl6er" href="/cate/?main_cate=30&mid_cate=&sub_cate=">패션잡화</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-뷰티 css-ysl6er" href="/cate/?main_cate=40&mid_cate=&sub_cate=">뷰티</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-출산/유아동 css-ysl6er" href="/cate/?main_cate=50&mid_cate=&sub_cate=">출산/유아동</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-모바일/태블릿 css-ysl6er" href="/cate/?main_cate=60&mid_cate=&sub_cate=">모바일/태블릿</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-가전제품 css-ysl6er" href="/cate/?main_cate=70&mid_cate=&sub_cate=">가전제품</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-노트북/데스크탑 css-ysl6er" href="/cate/?main_cate=80&mid_cate=&sub_cate=">노트북/데스크탑</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-카메라/캠코더 css-ysl6er" href="/cate/?main_cate=90&mid_cate=&sub_cate=">카메라/캠코더</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-가구/인테리어 css-ysl6er" href="/cate/?main_cate=100&mid_cate=&sub_cate=">가구/인테리어</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-리빙/생활 css-ysl6er" href="/cate/?main_cate=110&mid_cate=&sub_cate=">리빙/생활</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-게임 css-ysl6er" href="/cate/?main_cate=120&mid_cate=&sub_cate=">게임</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-반려동물/취미 css-ysl6er" href="/cate/?main_cate=130&mid_cate=&sub_cate=">반려동물/취미</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-도서/음반/문구 css-ysl6er" href="/cate/?main_cate=140&mid_cate=&sub_cate=">도서/음반/문구</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-티켓/쿠폰 css-ysl6er" href="/cate/?main_cate=150&mid_cate=&sub_cate=">티켓/쿠폰</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-스포츠 css-ysl6er" href="/cate/?main_cate=160&mid_cate=&sub_cate=">스포츠</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-레저/여행 css-ysl6er" href="/cate/?main_cate=170&mid_cate=&sub_cate=">레저/여행</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-중고차 css-ysl6er" href="/cate/?main_cate=180&mid_cate=&sub_cate=">중고차</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-오토바이 css-ysl6er" href="/cate/?main_cate=190&mid_cate=&sub_cate=">오토바이</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-공구/산업용품 css-ysl6er" href="/cate/?main_cate=200&mid_cate=&sub_cate=">공구/산업용품</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-무료나눔 css-ysl6er" href="/cate/?main_cate=210&mid_cate=&sub_cate=">무료나눔</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="category-NFT css-ysl6er" href="/cate/?main_cate=220&mid_cate=&sub_cate=">NFT</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="menu3"><a href="#" class="menu-a">이벤트</a></li>
+                                        <li class="menu3"><a href="#" class="menu-a">사기조회</a></li>
+                                    </ul>
+                                </div>
+                                <!-- <div id="menu-dot" class="menu-dot" style="left: 465px;"></div> -->
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+            <div class="container">
+                {%block content%}{%endblock%}
+            </div>
+            <input class="channel-talk-button" onclick="showPopup();"/>
+            <div class="footer-wrap">
+                <footer class="footer">
+                    <div class="title">
+                        <strong>(주)뚜벅마켓 사업자 정보</strong>
+                    </div>
+                    <div class="content">
+                        상호 : 주식회사 뚜벅마켓
+                        대표 : 박민준, 변유송, 위효정, 이종임
+                        주소 : 서울특별시 강남구 역삼동 736-7 (뚜벅서비스)
+                        대표전화 : 02-538-0021
+                    </div>
+                    <ul class="css-oi3s1u">
+                        <li><a href="/qna/introduce_company/">회사소개</a><span class="divider"></span></li>
+                        <li><a href="/qna/question/">1:1 문의</a><span class="divider"></span></li>
+                        <li><a href="">이용약관</a><span class="divider"></span></li>
+                        <li><a href="">사업자정보확인</a></li>
+                    </ul>
+                    <div class="css-13jhdfg">
+                        <button class="css-8rmnao"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-trabz"><path d="M20 10.0609C20 4.50383 15.5234 0 10 0C4.47656 0 0 4.50383 0 10.0609C0 15.0835 3.65625 19.2454 8.4375 20V12.9691H5.89844V10.0609H8.4375V7.84437C8.4375 5.32325 9.92969 3.93005 12.2148 3.93005C13.3086 3.93005 14.4531 4.12655 14.4531 4.12655V6.60248H13.1914C11.9492 6.60248 11.5625 7.37866 11.5625 8.17449V10.0609H14.3359L13.8926 12.9691H11.5625V20C16.3438 19.2454 20 15.0835 20 10.0609Z" fill="#666666"></path></svg></button>
+                        <button class="css-8rmnao"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-trabz"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.56917 20H15.4308C17.946 20 20 17.946 20 15.4308V4.56917C20 2.05869 17.946 0 15.4308 0H4.56917C2.05869 0 0 2.05869 0 4.56917V15.4308C0 17.9413 2.05403 20 4.56917 20ZM5.17897 4.01025H14.7551C16.1105 4.01025 17.219 5.11878 17.219 6.47416V12.422C17.219 13.7727 16.1152 14.8812 14.7598 14.8812H11.3411L10.7589 15.8873L10.186 16.8794C10.0788 17.061 9.818 17.061 9.71554 16.8794L9.14264 15.8873L8.56044 14.8812H5.17897C3.82825 14.8812 2.71973 13.7774 2.71973 12.422V6.4695C2.71973 5.11878 3.82359 4.01025 5.17897 4.01025ZM9.2963 9.6926C9.2963 8.96135 9.89714 8.36983 10.6377 8.36983C11.3829 8.36983 11.9791 8.96135 11.9791 9.6926C11.9791 10.4239 11.3783 11.0154 10.6377 11.0154C9.89714 11.0154 9.2963 10.4239 9.2963 9.6926ZM9.99495 9.6926C9.99495 10.0419 10.2837 10.326 10.6377 10.326C10.9963 10.326 11.2805 10.0419 11.2805 9.6926C11.2805 9.34328 10.9917 9.05916 10.6377 9.05916C10.2837 9.05916 9.99495 9.34328 9.99495 9.6926ZM6.3946 8.36983C6.10582 8.36983 5.83568 8.48161 5.62609 8.67258V7.57802H4.88086V10.9548H5.62609V10.7173C5.83568 10.9036 6.10117 11.02 6.3946 11.02C7.06065 11.02 7.60093 10.4285 7.60093 9.69726C7.60093 8.96601 7.0653 8.36983 6.3946 8.36983ZM6.24555 10.354C5.97075 10.354 5.73321 10.191 5.63074 9.95344C5.59814 9.87426 5.57485 9.78576 5.57485 9.69261C5.57485 9.59945 5.59348 9.51096 5.63074 9.43178C5.73321 9.19424 5.97075 9.03122 6.24555 9.03122C6.61817 9.03122 6.91626 9.32465 6.91626 9.69261C6.91626 10.0606 6.61817 10.354 6.24555 10.354ZM14.3033 8.63533V8.42573H15.0579V11.0154C15.0066 11.3414 14.7737 11.5883 14.7737 11.5883C14.2707 12.0913 13.7071 12.0261 13.7071 12.0261V11.3694C14.2288 11.3694 14.3033 11.0201 14.3033 11.0201V10.6661C14.0984 10.8291 13.8375 10.9269 13.5534 10.9269C12.8688 10.9269 12.3145 10.354 12.3145 9.6507C12.3145 8.94739 12.8688 8.3745 13.5534 8.3745C13.8329 8.3745 14.0937 8.47231 14.3033 8.63533ZM13.0131 9.64604C13.0131 10.0047 13.3159 10.2981 13.6932 10.2981C13.9586 10.2981 14.1915 10.1537 14.3033 9.93481C14.3452 9.85098 14.3732 9.74851 14.3732 9.64604C14.3732 9.54357 14.3499 9.44576 14.3033 9.35726C14.1915 9.14301 13.9586 8.99397 13.6932 8.99397C13.3205 8.99397 13.0131 9.2874 13.0131 9.64604ZM7.68479 7.51282V8.18818C7.68479 8.18818 8.02946 8.23476 8.09467 8.57011V10.9548H8.86318V8.57011V8.55148C8.8166 8.21613 8.61633 7.96462 8.61633 7.96462C8.1785 7.44762 7.68479 7.51282 7.68479 7.51282Z" fill="#666666"></path></svg></button>
+                        <button class="css-8rmnao"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-trabz"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20ZM15.0775 5.77319C15.6333 5.92391 16.0761 6.36667 16.2268 6.93188C16.5 7.94928 16.5 10.0783 16.5 10.0783C16.5 10.0783 16.5 12.2073 16.2268 13.2246C16.0761 13.7899 15.6333 14.2326 15.0775 14.3833C14.0696 14.6565 10 14.6565 10 14.6565C10 14.6565 5.93986 14.6565 4.92246 14.3833C4.36667 14.2326 3.92391 13.7899 3.77319 13.2246C3.5 12.2073 3.5 10.0783 3.5 10.0783C3.5 10.0783 3.5 7.94928 3.77319 6.93188C3.92391 6.36667 4.36667 5.92391 4.92246 5.77319C5.93043 5.5 10 5.5 10 5.5C10 5.5 14.0601 5.5 15.0775 5.77319ZM12.0725 10.0783L8.67174 8.1471V12.0094L12.0725 10.0783Z" fill="#666666"></path></svg></button>
+                        <button class="css-8rmnao"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-trabz"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.99623 2.21151C12.5333 2.21151 12.8312 2.22282 13.8339 2.26805C14.7613 2.30952 15.2627 2.46409 15.5982 2.59603C16.0431 2.76944 16.3597 2.97301 16.6915 3.30476C17.0232 3.63651 17.2306 3.95317 17.4002 4.39801C17.5284 4.73353 17.6867 5.23492 17.7282 6.1623C17.7734 7.16507 17.7847 7.46289 17.7847 9.99999C17.7847 12.5371 17.7734 12.8349 17.7282 13.8377C17.6867 14.7651 17.5321 15.2665 17.4002 15.602C17.2268 16.0468 17.0232 16.3635 16.6915 16.6952C16.3597 17.027 16.0431 17.2343 15.5982 17.404C15.2627 17.5321 14.7613 17.6905 13.8339 17.7319C12.8312 17.7772 12.5333 17.7885 9.99623 17.7885C7.45913 17.7885 7.16131 17.7772 6.15853 17.7319C5.23115 17.6905 4.72976 17.5359 4.39425 17.404C3.9494 17.2305 3.63274 17.027 3.30099 16.6952C2.96925 16.3635 2.7619 16.0468 2.59226 15.602C2.46409 15.2665 2.30575 14.7651 2.26429 13.8377C2.21905 12.8349 2.20774 12.5371 2.20774 9.99999C2.20774 7.46289 2.21905 7.16507 2.26429 6.1623C2.30575 5.23492 2.46032 4.73353 2.59226 4.39801C2.76567 3.95317 2.96925 3.63651 3.30099 3.30476C3.63274 2.97301 3.9494 2.76567 4.39425 2.59603C4.72976 2.46786 5.23115 2.30952 6.15853 2.26805C7.16131 2.21905 7.4629 2.21151 9.99623 2.21151ZM9.99623 0.5C7.41766 0.5 7.09345 0.51131 6.07937 0.556548C5.06905 0.601786 4.37917 0.763889 3.77599 0.997619C3.1502 1.23889 2.62242 1.56686 2.09464 2.09464C1.56687 2.62242 1.24266 3.15397 0.997619 3.77599C0.763889 4.37916 0.601786 5.06904 0.556548 6.08313C0.51131 7.09345 0.5 7.41765 0.5 9.99622C0.5 12.5748 0.51131 12.899 0.556548 13.9131C0.601786 14.9234 0.763889 15.6133 0.997619 16.2202C1.23889 16.846 1.56687 17.3738 2.09464 17.9016C2.62242 18.4293 3.15397 18.7536 3.77599 18.9986C4.37917 19.2323 5.06905 19.3944 6.08314 19.4397C7.09722 19.4849 7.41766 19.4962 10 19.4962C12.5823 19.4962 12.9028 19.4849 13.9169 19.4397C14.9272 19.3944 15.6171 19.2323 16.224 18.9986C16.8498 18.7573 17.3776 18.4293 17.9054 17.9016C18.4331 17.3738 18.7573 16.8422 19.0024 16.2202C19.2361 15.617 19.3982 14.9272 19.4435 13.9131C19.4887 12.899 19.5 12.5786 19.5 9.99622C19.5 7.41388 19.4887 7.09345 19.4435 6.07936C19.3982 5.06904 19.2361 4.37916 19.0024 3.77222C18.7611 3.14643 18.4331 2.61865 17.9054 2.09087C17.3776 1.56309 16.846 1.23889 16.224 0.993849C15.6208 0.760119 14.931 0.598016 13.9169 0.552778C12.899 0.51131 12.5748 0.5 9.99623 0.5ZM9.99644 5.12175C7.30478 5.12175 5.11827 7.30449 5.11827 9.99992C5.11827 12.6954 7.30101 14.8781 9.99644 14.8781C12.6919 14.8781 14.8746 12.6954 14.8746 9.99992C14.8746 7.30449 12.6919 5.12175 9.99644 5.12175ZM9.99644 13.1628C8.24724 13.1628 6.82978 11.7454 6.82978 9.99615C6.82978 8.24695 8.24724 6.82949 9.99644 6.82949C11.7456 6.82949 13.1631 8.24695 13.1631 9.99615C13.1631 11.7454 11.7456 13.1628 9.99644 13.1628ZM16.2051 4.92585C16.2051 5.55462 15.6954 6.06434 15.0666 6.06434C14.4379 6.06434 13.9281 5.55462 13.9281 4.92585C13.9281 4.29707 14.4379 3.78735 15.0666 3.78735C15.6954 3.78735 16.2051 4.29707 16.2051 4.92585Z" fill="#666666"></path></svg></button>
+                    </div>
+                    <div style="margin-top: -59px;">
+                        뚜벅마켓” 상점의 판매상품을 제외한 모든 상품들에 대하여 (주)뚜벅마켓는 통신판매중개자로서 거래 당사자가 아니며 판매 회원과 구매 회원 간의 상품거래 정보 및 거래에 관여하지 않고 어떠한 의무와 책임도 부담하지 않습니다.</div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+function showPopup() { window.open("/letter", "a", "width=400, height=600, left=1500, top=200"); }
+    
+    new TypeIt("#search_text1", {
+    speed: 100,
+    waitUntilVisible: true,
+    loop: true,
+    })
+    .pause(500)
+    .type("어떤 상품을 찾으시나요?", { delay: 1000 })
+    .pause(300)
+    .delete(13)
+    .type("아이폰", { delay: 1000 })
+    .pause(300)
+    .delete(3)
+    .type("폴드", { delay: 1000 })
+    .pause(300)
+    .go();
+    function enterkey() {
+        if (window.event.keyCode == 13) {
+            location.href="/search/?search=" + document.getElementById('search_text').value;
+            // 엔터키가 눌렸을 때
+        }
+    }
+    $('#search_text').click(function(){
+        document.getElementById('search_text1').hidden = true;
+    })
+    $('#search_text1').click(function(){
+        document.getElementById('search_text1').hidden = true;
+        document.getElementById('search_text').focus();
+    })
+
+    var underline = document.querySelector('#menu-dot');
+    var item = document.querySelectorAll('.menu-a');
+    function select(event){
+        console.log(event);
+        underline.style.left = event.offsetLeft+"px";
+        underline.style.width = event.offsetWidth+"px";
+        console.log(e.offsetLeft+"px");
+       
+    }
+    item.forEach(link =>{
+        link.addEventListener('click', (event)=>{
+            select(event.target);
+        })
+    })
+
+    $(function(){
+        $('#category-btn').hover(function(){
+            $('.css-1oi3byu').show();
+        });
+    });
+    
+    $(function(){
+        $('.close').click(function(){
+            $('.css-1oi3byu').hide();
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,113 @@
+.agreement{
+    width:500px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 100px;
+}
+
+.agreement form .form-check-input {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    border: 1px solid #ababab;
+    appearance: none;
+    cursor: pointer;
+    margin-right: 7px;
+    background-image:url('static\keep_chk_off.png');
+}
+
+.agreement form .form-check-input:checked {
+    background-color: #8ECA5D;
+    border: 1px solid #8ECA5D;
+}
+
+label {
+    display: block;
+}
+
+label.form-check-label.all {
+    font-weight: 600;
+}
+
+.form-check {
+    margin-bottom: 13px;
+}
+
+.form-check.all {
+    margin-bottom: 33px;
+}
+
+.textarea {
+    width: inherit;
+    height: 230px;
+    overflow: auto;
+    margin-bottom: 30px;
+    background-color: white;
+    font-size: 12px;
+    line-height: 18px;
+    color: #555;
+    padding: 12px;
+}
+.promotion {
+    width: inherit;
+    margin-bottom: 30px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #555;
+}
+
+#alert{
+    margin-bottom: 30px;
+    font-size: 12px;
+    line-height: 18px;
+    color: red;
+}
+
+span {
+    font-size: 12.5px;
+    line-height: 16px;
+}
+
+span.essential {
+    color: #5EB318;
+}
+
+span.inessential {
+    color: #ABABAB;
+}
+
+.form-btn{
+    width: inherit;
+}
+
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-primary:active,
+a.btn-primary:focus,
+a.btn-primary:visited{
+    float: left;
+    width: 243px;
+    height: 55px;
+    border: 0px;
+    background-color: #ABABAB;
+    padding: 0;
+    text-align : center;
+    line-height : 55px;
+    font-size: 20px;
+    box-shadow: none !important
+}
+
+input.btn-primary,
+input.btn-primary:hover,
+input.btn-primary:active,
+input.btn-primary:focus,
+input.btn-primary:visited{
+    float: right;
+    width: 243px;
+    height: 55px;
+    border: 0px;
+    background-color: #8ECA5D;
+    font-size: 20px;
+    box-shadow: none !important
+}

@@ -1,0 +1,969 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <title>뚜벅마켓 | 상품등록</title>
+</head>
+<body>
+    <div class="dCpIGN">
+        <div class="cKIAcS">
+            <nav class="bWVQxC">
+                <div class="cUcIFa">
+                    <a class="sc-cBrjTV" href="/board/new/" style="color: rgb(255, 80, 88);">상품등록</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="iCJZxd" href="/board/manage/">상품관리</a>
+                </div>
+                <div class="jDjlCU">
+                    <a class="hiJdyf" href="/board/buy/">구매/판매 내역</a>
+                </div>
+            </nav>
+        </div>
+        <div class="jTDAhy">
+            <main class="CWKTr">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <section class="crPlne">
+                    <h2>기본정보
+                        <span>*필수항목</span>
+                    </h2>
+                        <ul class="hMDQtn">
+                            <li class="hEZfge">
+                                <div class="cJkoqO">
+                                    상품이미지
+                                    <span>*</span>
+                                </div>
+                                <div class="jdexSt">
+                                    <ul class="fBEkVD" id="att_zone">
+                                        <li class="kCCNcG" id="image_preview">
+                                            이미지 등록
+                                            <input type="file" name="files" id='btnAtt' accept="image/jpg, image/jpeg, image/png" multiple="">
+                                        </li>
+                                    </ul>
+                                    <div class="buJgvB">
+                                        <b>* 상품 이미지는 640x640에 최적화 되어 있습니다.</b><br>- 상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로 보여집니다. <br>- 이미지는 상품 등록 시 정사각형으로 잘려서 등록됩니다.<br>- 이미지를 클릭할 경우 원본 이미지를 확인할 수 있습니다.<br>- 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.<br>- 큰 이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다.<br>최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당 이미지 최대 10M)
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="jiWYzF">
+                                    제목
+                                    <span>*</span>
+                                </div>
+                                <div class="jdexSt">
+                                    <div class="dLRjuf">
+                                        <div class="sc-fgrSAo iRRXiG">
+                                            <input type="text" placeholder="상품 제목을 입력해주세요." id="title" name="title" class="hWXltl" value="">
+                                            <a href="https://help.bunjang.co.kr/faq/2/220" target="_blank">거래금지 품목</a>
+                                        </div>
+                                        <div class="evDoyI"><input style="width: 100px; border: none;" type="text"placeholder="글자 수" id="titlecheck" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="kzaYLq">
+                                    카테고리
+                                    <span>*</span>
+                                </div>
+                                <div class="jdexSt">
+                                    <div class="gOoSqk">
+                                        <div class="main-div">
+                                            <ul class="main-ul">
+                                                <select class="main-select" name = "main_cate" id="box">
+                                                    <option value="">대분류</option>
+                                                    {% for j in main %}
+                                                    <option value="{{j.bcmn_idx}}" id="{{j.bcmn_idx}}">{{j.main_category}}</option>
+                                                    {%endfor%}
+                                                </select>
+                                                <button type="button" name=""></button>
+                                            </ul>
+                                        </div>
+                                        <div class="mid-div"">
+                                            <ul class="mid-ul">
+                                                <select class="main-select" name = "mid_cate" id="mid">
+                                                    <option value="">중분류</option>
+                                                    {%for i in mid%}
+                                                    <option value="{{i.bcmd_idx}}" id="{{i.main_idx.bcmn_idx}}" class="hidden" >{{i.mid_category}}</option>
+                                                    {%endfor%}
+                                                </select>
+                                            </ul>
+                                        </div>
+                                        <div class="sub-div">
+                                            <ul class="sub-ul">
+                                                <select class="main-select" name="sub_cate" id="sub">
+                                                    <option value="">소분류</option>
+                                                    {%for s in sub%}
+                                                    <option value="{{s.bsb_idx}}" id="{{s.mid_idx.bcmd_idx}}" class="hidden" >{{ s.sub_category}}</option>
+                                                    {%endfor%}
+                                                </select>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="state">
+                                    상태
+                                    <span>*</span>
+                                </div>
+                                <div class="radio-select">
+                                    <div class="checks">
+                                        <input id="중고상품" name="conditions" type="radio" value="0" checked>중고상품
+                                        <label for="중고상품"></label>
+                                        <input id="새상품" name="conditions" value="1" type="radio">새상품
+                                        <label for="새상품"></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="state">
+                                    교환
+                                    <span>*</span>
+                                </div>
+                                <div class="radio-select">
+                                    <div class="checks">
+                                        <input id="교환불가" name="trade" type="radio" value="0" checked>교환불가
+                                        <label for="교환불가"></label>
+                                        <input id="교환가능" name="trade" value="1" type="radio">교환가능
+                                        <label for="교환가능"></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="state">
+                                    가격
+                                    <span>*</span>
+                                </div>
+                                <div class="price-input">
+                                    <input type="text" name="price" placeholder="숫자만 입력해주세요." class="price-input-1">원
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="state">
+                                    설명
+                                    <span>*</span>
+                                </div>
+                                <div class="ex-input">
+                                    <textarea class="ex-text" id="contents" name="contents" rows="6" placeholder="여러 장의 상품 사진과 구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 꼭 포함해 주세요. (10자 이상)"></textarea>
+                                    <div class="out-ex">
+                                        <span>혹시
+                                            <a href="https://help.bunjang.co.kr/notice/607" target="_blank" style="color: rgb(155, 153, 169); text-decoration: underline;">카카오톡 ID</a>를 적으셨나요?
+                                        </span>
+                                        <div class="count-text"><input style="width: 100px;" type="text"placeholder="글자 수" id="textLengthCheck" disabled></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="hEZfge">
+                                <div class="state">
+                                    수량
+                                    <span>*</span>
+                                </div>
+                                <div class="pro-count">
+                                    <input type="text" class="count-product" name="count" id="count" value="1">개
+                                </div>
+                                <label class="showtext">수량이 잘못입력됬습니다.</label>
+                            </li>
+                            <li class="hEZfge" style="display: flex;flex-direction: column;margin-bottom: 549px;">
+                                <div class="kzaYLq">
+                                    거래지역
+                                    <span>*</span>
+                                </div>
+                                <!-- ------------주소 검색-------------- -->
+                                <!-- <div style="display: inline-flex;">
+                                    <input style="display: none;" type="text" id="sample6_postcode" placeholder="우편번호">
+                                    <input type="text" name="location" id="sample6_address" placeholder="주소"><br>
+                                    <input  type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
+                                    <input style="display: none;" type="text" id="sample6_detailAddress" placeholder="상세주소">
+                                    <input style="display: none;" type="text" id="sample6_extraAddress" placeholder="참고항목">
+                                </div> -->
+                                <input style="display: none;" id="x" name="x">
+                                <input id="y" name="y" style="display: none;">
+                            </li>
+                        </ul>
+                </section>
+            </main>
+            <footer class="submit-btn">
+                <div class="submit-btn1">
+                    <button type="submit" onclick="location.href='/board/update/{{b.bs_idx}}'" class="sc-dEfkYy upaaa">
+                    </button>
+                </div>
+            </footer>
+        </form>
+        <div style="margin-left: 180px;position: absolute;bottom: 140px;width: 796px;left: 159px;">
+            <div onkeyup="enter()" style="    width: 332px;height: 61px;margin-bottom: 12px;line-height: 3.6;border: 1px solid #bdb9b9;">
+                거래위치 : <input type="text" value="이태원" id="keyword" size="15" style="border: none;"> 
+                <button onclick="searchPlaces()">검색하기</button> 
+            </div>
+            <div class="map_wrap">
+                <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                <div id="menu_wrap" class="bg_white">
+                    <div class="option">
+                    </div>
+                    <hr>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+<script>
+    // $('.btn-main').on('click', (e) => {
+    //     var num = e.target.value
+    //     console.log(num);
+
+    $("#title").keyup(function(e) {
+		let title = $(this).val();
+        $("#titlecheck").val("(" + title.length + "/ 40)"); //실시간 글자수 카운팅
+		if (title.length == 0 || title.length<2) {
+            $("#title").css('border-color','rgb(255 50 50)');
+            return false
+        }
+		else if (title.length > 40) {
+			alert("최대 40자까지 입력 가능합니다.");
+			$(this).val(title.substring(0, 40));
+			$('#titlecheck').html("(40 / 최대 40자)");
+		}
+        else if (title.length == 0){
+            alert("설명 2글자 이상입력해야합니다. ")
+            return false
+        }
+        else{
+            $("#title").css('border-color','rgb(195, 194, 204)');
+        }
+	});
+    $("#contents").keyup(function(e) {
+		let title = $(this).val();
+		$("#textLengthCheck").val("(" + title.length + "/ 200)"); //실시간 글자수 카운팅
+		if (title.length == 0 || title.length<10) {
+            $("#contents").css('border-color','rgb(255 50 50)');
+            return false
+        }
+		else if (title.length > 200) {
+			alert("최대 200자까지 입력 가능합니다.");
+			$(this).val(title.substring(0, 200));
+			$('#textLengthCheck').html("(200 / 최대 200자)");
+		}
+        else if (title.length == 0){
+            alert("설명 10글자 이상입력해야합니다. ")
+            return false
+        }else{
+            $("#contents").css('border-color','rgb(195, 194, 204)');
+        }
+	});
+    var numCheck = RegExp(/^[0-9]{1,10}$/);
+    $("#count").keyup(function(e) {
+        var count = $(this).val();
+        if(numCheck.test(count)){
+            if (count <= 0){
+            $("#count").css('border-color','rgb(255 50 50)');
+            $("#count").text('border-color','rgb(255 50 50)');
+            $(".showtext").css('display','block');
+            return false
+            }
+            else{
+            $("#count").css('border-color','rgb(195, 194, 204)');
+            $(".showtext").css('display','none');
+            $(".showtext").css('color','rgb(255 50 50)');
+            }
+        }
+        else{
+            $("#count").css('border-color','rgb(255 50 50)');
+            $(".showtext").css('display','block');
+            $(".showtext").css('color','rgb(255 50 50)');
+        }
+    });
+
+function checks(){
+    console.log($("#price").length)
+    if($("#title").val() == ""){
+        alert("상품명을 입력해주세요.");
+        $("#title").focus();
+        return false
+    }
+    else if($("#box").val()==""){
+        alert("카테고리를 선택해주세요.")
+        $("#box").focus();
+        return false
+    }
+    else if($("#mid").val()==""){
+        alert("중분류 카테고리를 선택해주세요.")
+        $("#mid").focus();
+        return false
+    }
+    else if($("#price").val()==""){
+        alert("가격을 입력해주세요.")
+        $("#price").focus();
+        return false
+    }
+    else if($("#price").length>9){
+        alert("너무 비쌉니다.")
+        $("#price").focus();
+        return false
+    }
+    else if($("#contents").val()==""){
+        alert("설명을 입력해주세요.")
+        $("#contents").focus();
+        return false
+    }
+    else if(int($("#count").val()) < 1){
+        alert("수량을 잘못입력하셨습니다.")
+        $("#count").focus();
+        return false
+    }
+    else{
+        return true
+    }
+}
+// $(function(){
+// 	$("input").mouseover(function(){
+// 		$(".hWXltl").css('border-color','black');
+// 	}),
+// 	$("input").mouseout(function(){
+// 		$(".hWXltl").css('border-color','rgb(195, 194, 204)');
+// 	});
+// 	$(".price-input-1").mouseover(function(){
+// 		$(".price-input-1").css('border-color','black');
+// 	}),
+// 	$(".price-input-1").mouseout(function(){
+// 		$(".price-input-1").css('border-color','rgb(195, 194, 204)');
+// 	});
+// 	$(".count-product").mouseover(function(){
+// 		$(".count-product").css('border-color','black');
+// 	}),
+// 	$(".count-product").mouseout(function(){
+// 		$(".count-product").css('border-color','rgb(195, 194, 204)');
+// 	});
+// });
+
+</script>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9885818f349db7731fdc9ee7a1120574&libraries=services"></script>
+<script>
+    // 마커를 담을 배열입니다
+    var markers = [];
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places();  
+
+// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+// 키워드로 장소를 검색합니다
+searchPlaces();
+
+// 키워드 검색을 요청하는 함수입니다
+function searchPlaces() {
+
+    var keyword = document.getElementById('keyword').value;
+
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch( keyword, placesSearchCB); 
+}
+function enter() {if (window.event.keyCode == 13) {searchPlaces();}}
+
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+function placesSearchCB(data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        displayPlaces(data);
+
+        // 페이지 번호를 표출합니다
+        displayPagination(pagination);
+
+    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+
+    } else if (status === kakao.maps.services.Status.ERROR) {
+
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
+
+    }
+}
+
+// 검색 결과 목록과 마커를 표출하는 함수입니다
+function displayPlaces(places) {
+
+    var listEl = document.getElementById('placesList'), 
+    menuEl = document.getElementById('menu_wrap'),
+    fragment = document.createDocumentFragment(), 
+    bounds = new kakao.maps.LatLngBounds(), 
+    listStr = '';
+    
+    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeAllChildNods(listEl);
+
+    // 지도에 표시되고 있는 마커를 제거합니다
+    removeMarker();
+    
+    for ( var i=0; i<places.length; i++ ) {
+
+        // 마커를 생성하고 지도에 표시합니다
+        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+            marker = addMarker(placePosition, i), 
+            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(placePosition);
+
+        // 마커와 검색결과 항목에 mouseover 했을때
+        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+        // mouseout 했을 때는 인포윈도우를 닫습니다
+        (function(marker, title) {
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
+                displayInfowindow(marker, title);
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                infowindow.close();
+            });
+
+            itemEl.onmouseover =  function () {
+                displayInfowindow(marker, title);
+            };
+
+            itemEl.onmouseout =  function () {
+                infowindow.close();
+            };
+        })(marker, places[i].place_name);
+
+        fragment.appendChild(itemEl);
+    }
+
+    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+
+    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+    map.setBounds(bounds);
+}
+
+// 검색결과 항목을 Element로 반환하는 함수입니다
+function getListItem(index, places) {
+
+    var el = document.createElement('li'),
+    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+                '<div class="info">' +
+                '   <h5>' + places.place_name + '</h5>';
+
+    if (places.road_address_name) {
+        itemStr += '    <span>' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+    } else {
+        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+    }
+                
+    itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+                '</div>';           
+
+    el.innerHTML = itemStr;
+    el.className = 'item';
+
+    return el;
+}
+
+// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+function addMarker(position, idx, title) {
+    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+        imgOptions =  {
+            spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+        },
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+            marker = new kakao.maps.Marker({
+            position: position, // 마커의 위치
+            image: markerImage 
+        });
+
+    marker.setMap(map); // 지도 위에 마커를 표출합니다
+    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
+    return marker;
+}
+
+// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+function removeMarker() {
+    for ( var i = 0; i < markers.length; i++ ) {
+        markers[i].setMap(null);
+    }   
+    markers = [];
+}
+
+// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+function displayPagination(pagination) {
+    var paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),
+        i; 
+
+    // 기존에 추가된 페이지번호를 삭제합니다
+    while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild (paginationEl.lastChild);
+    }
+
+    for (i=1; i<=pagination.last; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i===pagination.current) {
+            el.className = 'on';
+        } else {
+            el.onclick = (function(i) {
+                return function() {
+                    pagination.gotoPage(i);
+                }
+            })(i);
+        }
+
+        fragment.appendChild(el);
+    }
+    paginationEl.appendChild(fragment);
+}
+
+// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+// 인포윈도우에 장소명을 표시합니다
+function displayInfowindow(marker, title) {
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+}
+
+// 검색결과 목록의 자식 Element를 제거하는 함수입니다
+function removeAllChildNods(el) {   
+    while (el.hasChildNodes()) {
+        el.removeChild (el.lastChild);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+    
+
+function searchAddrFromCoords(coords, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
+
+////////////////////////////////////////////////////////////
+// 지도를 클릭한 위치에 표출할 마커입니다
+var marker = new kakao.maps.Marker({ 
+    // 지도 중심좌표에 마커를 생성합니다 
+    position: map.getCenter() 
+}); 
+// 지도에 마커를 표시합니다
+marker.setMap(map);
+
+// 지도에 클릭 이벤트를 등록합니다
+// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+    // 클릭한 위도, 경도 정보를 가져옵니다 
+    var latlng = mouseEvent.latLng; 
+    
+    // 마커 위치를 클릭한 위치로 옮깁니다
+    marker.setPosition(latlng);
+    document.getElementById('x').value = latlng.getLat();
+    document.getElementById('y').value = latlng.getLng();
+
+    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">법정동 주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+
+            // 마커를 클릭한 위치에 표시합니다 
+            marker.setPosition(mouseEvent.latLng);
+            marker.setMap(map);
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }   
+    });
+        
+});
+
+//////////////////////////////////////////////////////////////////////
+
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+<script type="text/javascript">
+    const selectbox = document.querySelector('#box');
+    const boxlist = selectbox.querySelectorAll('option');
+    const midcatelist = document.querySelectorAll('#mid option');
+    // const midcatelist = document.querySelectorAll('#mid option');
+    // console.log(midcatelist)
+    // const boxAddr = Array.from(boxlist);
+    // console.log(boxAddr)
+    
+    const clickHandler1 = (event) => {
+        const midcatelist = document.querySelectorAll('#mid option');
+        // console.log(midcatelist)
+        const boxAddr = Array.from(boxlist);
+        const selectedArr = boxAddr.filter(opt=>{return opt.selected});
+        // console.log(selectedArr)
+
+        midcatelist.forEach(opt=>opt.classList.add('hidden'));
+
+        // midcatelist.forEach(opt=>opt.classList.add('hidden'));
+        for(let i =0;i<midcatelist.length;i++){
+            const tr = midcatelist[i];
+            const trr = tr.id;
+            if(selectedArr[0].id== trr){
+                tr.classList.remove('hidden');
+            }
+            
+        }
+    };
+    selectbox.addEventListener('change',clickHandler1)
+
+    const midbox = document.querySelector('#mid');
+    const box2list = midbox.querySelectorAll('option');
+    const subcatelist = document.querySelectorAll('#sub option');
+    
+    const clickHandler2 = (event) => {
+        const subcatelist = document.querySelectorAll('#sub option');
+        // console.log(midcatelist)
+        const midAddr = Array.from(box2list);
+        const midselectedArr = midAddr.filter(opt=>{return opt.selected});
+        // console.log(selectedArr)
+
+        subcatelist.forEach(opt=>opt.classList.add('hidden'));
+
+        // midcatelist.forEach(opt=>opt.classList.add('hidden'));
+        for(let j =0;j<subcatelist.length;j++){
+            const trrr = subcatelist[j];
+            const trrrr = trrr.id;
+            if(midselectedArr[0].value== trrrr){
+                trrr.classList.remove('hidden');
+            }
+            
+        }
+    };
+    midbox.addEventListener('change',clickHandler2)
+    //boxlist.forEach(opt=>opt.on=clickHandler);
+</script>
+<script>
+    ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+    imageView = function imageView(att_zone, btn){
+    
+        var attZone = document.getElementById(att_zone);
+        var btnAtt = document.getElementById(btn)
+        var sel_files = [];
+        
+        // 이미지와 체크 박스를 감싸고 있는 div 속성
+        var div_style = 'width: 202px;height: 202px;margin-right: 1rem;'
+                      + 'list-style-type: none;display: flex;cursor: pointer;border: 1px solid rgb(195, 194, 204);';
+        // 미리보기 이미지 속성
+        var img_style = 'width:100%;height:100%;';
+        // 이미지안에 표시되는 체크박스의 속성
+        var chk_style = 'padding:0;width: 1.5rem;height: 1.5rem;background-position: center center;background-repeat: no-repeat;background-size: 12px 12px;'
+                        +'background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTYuODQ4IDZsMy43NzYtMy43NzZhLjYuNiAwIDEgMC0uODQ4LS44NDhMNiA1LjE1IDIuMjI0IDEuMzc2YS42LjYgMCAwIDAtLjg0OC44NDhMNS4xNTIgNiAxLjM3NiA5Ljc3NWEuNi42IDAgMSAwIC44NDguODQ5TDYgNi44NDhsMy43NzYgMy43NzZhLjU5OC41OTggMCAwIDAgMS4wMjQtLjQyNS42LjYgMCAwIDAtLjE3Ni0uNDI0TDYuODQ4IDZ6IiBvcGFjaXR5PSIuNjQiLz4KPC9zdmc+Cg==);'
+                        +'background-color: rgba(30, 29, 41, 0.32);border-radius: 50%;position: absolute;margin-top: 5px;margin-left: 171px;'
+      
+        btnAtt.onchange = function(e){
+          var files = e.target.files;
+          var fileArr = Array.prototype.slice.call(files)
+          for(f of fileArr){
+            imageLoader(f);
+          }
+        }  
+        
+      
+        // 탐색기에서 드래그앤 드롭 사용
+        attZone.addEventListener('dragenter', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+        }, false)
+        
+        attZone.addEventListener('dragover', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          
+        }, false)
+      
+        attZone.addEventListener('drop', function(e){
+          var files = {};
+          e.preventDefault();
+          e.stopPropagation();
+          var dt = e.dataTransfer;
+          files = dt.files;
+          for(f of files){
+            imageLoader(f);
+          }
+          
+        }, false)
+        
+    
+        
+        /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+        imageLoader = function(file){
+          sel_files.push(file);
+          var reader = new FileReader();
+          reader.onload = function(ee){
+            let img = document.createElement('img')
+            img.setAttribute('style', img_style)
+            img.src = ee.target.result;
+            attZone.appendChild(makeDiv(img, file));
+          }
+          
+          reader.readAsDataURL(file);
+        }
+        
+        /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+        makeDiv = function(img, file){
+          var div = document.createElement('div')
+          div.setAttribute('style', div_style)
+          
+          var btn = document.createElement('input')
+          btn.setAttribute('type', 'button')
+          btn.setAttribute('value', '')
+          btn.setAttribute('delFile', file.name);
+          btn.setAttribute('style', chk_style);
+          btn.onclick = function(ev){
+            var ele = ev.srcElement;
+            var delFile = ele.getAttribute('delFile');
+            for(var i=0 ;i<sel_files.length; i++){
+              if(delFile== sel_files[i].name){
+                sel_files.splice(i, 1);      
+              }
+            }
+            
+            dt = new DataTransfer();
+            for(f in sel_files) {
+              var file = sel_files[f];
+              dt.items.add(file);
+            }
+            btnAtt.files = dt.files;
+            var p = ele.parentNode;
+            attZone.removeChild(p)
+          }
+          div.appendChild(img)
+          div.appendChild(btn)
+          return div
+        }
+      }
+    )('att_zone', 'btnAtt')
+    
+</script>
+
+
+
+<!-- 이미지 1개 올리고 변경가능. -->
+<!-- <script>
+    const reader = new FileReader();
+
+    reader.onload = (readerEvent) => {
+        document.querySelector("#img_section").setAttribute("src", readerEvent.target.result);
+        //파일을 읽는 이벤트가 발생하면 img_section의 src 속성을 readerEvent의 결과물로 대체함
+    };
+
+    document.querySelector("#upload_file").addEventListener("change", (changeEvent) => {
+    //upload_file 에 이벤트리스너를 장착
+
+    const imgFile = changeEvent.target.files[0];
+    reader.readAsDataURL(imgFile);
+    //업로드한 이미지의 URL을 reader에 등록
+})
+</script> -->
+<script>
+    $('.btn-main').on('click', (e) => {
+        var num = e.target.value
+        console.log(num);
+    });
+// function main_cate(){
+//         $.ajax({
+//             url:'/board/new/',
+//             type: 'get',
+//             data:{
+//                 'num':num,
+//             },
+//             success:function(data){
+//                 console.log(data['main_cate'])
+//             }
+//         })
+//     });
+// }
+$("#title").keyup(function(e) {
+		let title = $(this).val();
+		$("#titlecheck").val("(" + title.length + "/ 40)"); //실시간 글자수 카운팅
+		if (title.length == 0 || title.length<2) {
+            $("#title").css('border-color','rgb(255 50 50)');
+            return false
+        }
+		else if (title.length > 40) {
+			alert("최대 40자까지 입력 가능합니다.");
+			$(this).val(title.substring(0, 40));
+			$('#titlecheck').html("(40 / 최대 40자)");
+		}
+        else if (title.length == 0){
+            alert("설명 2글자 이상입력해야합니다. ")
+            return false
+        }
+        else{
+            $("#title").css('border-color','rgb(195, 194, 204)');
+        }
+	});
+    $("#contents").keyup(function(e) {
+		let title = $(this).val();
+		$("#textLengthCheck").val("(" + title.length + "/ 200)"); //실시간 글자수 카운팅
+		if (title.length == 0 || title.length<10) {
+            $("#contents").css('border-color','rgb(255 50 50)');
+            return false
+        }
+		else if (title.length > 200) {
+			alert("최대 200자까지 입력 가능합니다.");
+			$(this).val(title.substring(0, 200));
+			$('#textLengthCheck').html("(200 / 최대 200자)");
+		}
+        else if (title.length == 0){
+            alert("설명 10글자 이상입력해야합니다. ")
+            return false
+        }else{
+            $("#contents").css('border-color','rgb(195, 194, 204)');
+        }
+	});
+var numCheck = RegExp(/^[0-9]{1,10}$/);
+$("#count").keyup(function(e) {
+    var count = $(this).val();
+    if(numCheck.test(count)){
+        if (count <= 0){
+        $("#count").css('border-color','rgb(255 50 50)');
+        $("#count").text('border-color','rgb(255 50 50)');
+        $(".showtext").css('display','block');
+        return false
+        }
+        else{
+        $("#count").css('border-color','rgb(195, 194, 204)');
+        $(".showtext").css('display','none');
+        $(".showtext").css('color','rgb(255 50 50)');
+        }
+    }
+    else{
+        $("#count").css('border-color','rgb(255 50 50)');
+        $(".showtext").css('display','block');
+        $(".showtext").css('color','rgb(255 50 50)');
+    }
+});
+// $(function(){
+// 	$("input").mouseover(function(){
+// 		$(".hWXltl").css('border-color','black');
+// 	}),
+// 	$("input").mouseout(function(){
+// 		$(".hWXltl").css('border-color','rgb(195, 194, 204)');
+// 	});
+// 	$(".price-input-1").mouseover(function(){
+// 		$(".price-input-1").css('border-color','black');
+// 	}),
+// 	$(".price-input-1").mouseout(function(){
+// 		$(".price-input-1").css('border-color','rgb(195, 194, 204)');
+// 	});
+// 	$(".count-product").mouseover(function(){
+// 		$(".count-product").css('border-color','black');
+// 	}),
+// 	$(".count-product").mouseout(function(){
+// 		$(".count-product").css('border-color','rgb(195, 194, 204)');
+// 	});
+// });
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</html>
+{%endblock%}

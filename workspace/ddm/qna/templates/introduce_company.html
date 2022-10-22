@@ -1,0 +1,157 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/introduce.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>회사 소개</title>
+</head>
+<style>
+    a{
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+<body>
+    <div id="layout">
+        <main>
+        <div class="main1">
+        </div>
+        <div class="main2">
+            <section class="main3">
+                <figure class="main4">
+                    <h1 class="main_message" style="font-weight: 700; ">       
+                        이웃과 더 가까워지는 <br>
+                        따뜻한 동네를 만들어요.
+                    </h1>
+                    <img class="c-ffaQVU" src="/static/img/뚜벅마켓.jpg" alt="">
+                </figure>
+                <p class="main5">
+                    "월평균 1800만 명의 사용자, 하루 평균 사용 시간 20분,1억 2천만 번의 연결. 중고 직거래로 시작한 뚜벅마켓은 국내 
+                    최대의 지역 생활 커뮤니티 서비스로 나아가고 있어요. 이웃이 알려주는 진짜 우리 동네 정보, 내 근처에 숨어있는 좋은 가게를
+                    발견하고, 이웃과 함께 소소한 일상을 나눌 수 있는 따뜻하고 풍요로운 동네 생활을 꿈꿔요."
+                </p>
+            </section>
+        <div class="main6">
+            <section class="main7">
+                <div class="main8" style="display: inline-block; text-align-last: left; margin-right: 204px; margin-left: -50px;
+                ">
+                    <span class="main8-1">
+                        뚜벅마켓 팀
+                    </span>
+                    <h1 class="main8-2">
+                        사용자 가치를 <br>최우선으로 생각해요 
+                    </h1>
+                </div>
+                <div class="main9">
+                    <p>
+                        우리는 동네 안에서 연결되지 못한 가치 있는 정보를 발견하고, 지역 
+                        생활 속의 불편함을 해결하게 위해 모였어요. 만드는 사람이 
+                        불편할수록, 쓰는 사람은 편하다는 믿음으로 언제나 사용자 관점에서
+                        생각하며 지속적인 테스트를 통해 답을 찾아요. 지역 커뮤니티와
+                        이웃에 대한 공감, 동료를 향한 신뢰를 바탕으로 모두의 생활에 
+                        없어서는 안 될 최고의 서비스를 만들기 위해 노력해요.
+                    </p>
+                </div>
+                
+            </section>
+            
+
+        </div>
+        </div>
+        </main>
+    </div>
+    <div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col">
+                            <div class="card">
+                                <img src="/static/img/introduce_img1.jpg" class="card-img-1" alt="our_img">
+                                <div class="card-body">
+                                <p class="card-text">건설적인 비판과 피드백을 줄 수 있는 동료와 일하고 있어요
+                                모두가 자기가 제일 잘하는 분야에서 권한과 책임을 가진 리더에요. 하나의 서비스를 만들기 위해, 형식보단 일에 집중할 수 있는 환경 속에서 빠르게 성장하고 있어요."</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="/static/img/introduce_img2.jpg" class="card-img-2" alt="our_img">
+                                <div class="card-body">
+                                <p class="card-text">뛰어난 동료들과 최대한의 역량을 발휘하며 일하고 있어요. 이 과정에서 프로덕트의 성장뿐만 아니라 개인의 성장까지 이뤄내고 있어요. 서비스 측면에서 시도해보고 싶은 기능을 자유롭게 제시하고 실현시킬 수 있는 곳이 당근마켓이에요."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-item active">
+                        <div class="row" style="margin: 0 auto;">
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/introduce_img3.jpg" class="card-img-1" alt="our_img">
+                                    <div class="card-body">
+                                    <p class="card-text">사용자에게 사랑받는 제품을 설계하는 가슴 뛰는 일을 하고 있어요. 최고의 사용자 경험을 위해 고민하고 어떤 문제를 어떻게 풀지 주도적으로 정할 수 있어요. 더 큰 비즈니스 임팩트를 내기 위해 치열하게 고민해 볼 수 있는 게 큰 장점이에요."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/introduce_img4.jpg" class="card-img-2" alt="our_img">
+                                    <div class="card-body">
+                                    <p class="card-text">플랫폼이 성장하면서 많은 요청을 처리하기 위해 아키텍처가 변화하고 있어요. 이로 인해 다양한 시도와 학습은 필수적이에요. 당근마켓 팀은 이런 문제들을 해결하기 위해 끊임없이 학습하고, 새로운 시도와 개선을 하며 하루하루 성장하고 있어요."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+            <div class="main12">
+                <div class="main10">
+                    <span class="main10-1">팀 문화</span>
+                    <h1 class="main10-2">우리는 함께 <br>성장할 수 있다고 믿어요</h1>
+                </div>
+                <div class="main11">
+                    <img class="main11-1" src="/static/img/introduce_img5.jpg" alt="이종임사진">
+                </div>
+            </div>
+            <picture>
+                <img src="/static/img/introduce_img6.jpg" alt="회의실사진"  style="width: 100%;">
+            </picture>
+            <section class="main13">
+                <h1 class="main13-1">
+                    지금, 뚜벅마켓의 여정에 함께하세요.
+                </h1>
+            </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
+{%endblock%}

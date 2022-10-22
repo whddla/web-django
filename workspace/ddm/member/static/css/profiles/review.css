@@ -1,0 +1,217 @@
+.ant-row, .ant-row:after, .ant-row:before {
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+}
+
+.ant-row {
+    -webkit-flex-flow: row wrap;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    flex-flow: row wrap;
+}
+
+.ant-col-4 {
+    display: block;
+    -webkit-flex: 0 0 16.66666667%;
+    -moz-box-flex: 0;
+    flex: 0 0 16.66666667%;
+    max-width: 16.66666667%;
+}
+
+.ant-col {
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+
+.ant-col-20 {
+    display: block;
+    -webkit-flex: 0 0 83.33333333%;
+    -moz-box-flex: 0;
+    flex: 0 0 83.33333333%;
+    max-width: 83.33333333%;
+}
+
+.css-t77d8m {
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-top: 28px;
+    margin-bottom: 100px;
+}
+
+
+#user-profile {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 40px;
+    margin-bottom: 45px;
+}
+
+#user-profile #user-name {
+    text-align: left;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+    margin-bottom: 0;
+    vertical-align: middle;
+    margin-left: 80px;
+}
+
+#user-profile #user-name #region_name {
+    font-size: 17px;
+    color: #212529;
+    font-weight: normal;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+#user-profile #profile-detail {
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+#user-profile #profile-detail .profile-detail-title {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 14px;
+    letter-spacing: -0.6px;
+    color: #868e96;
+}
+
+#user-profile #profile-detail .profile-detail-title .profile-detail-count {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+#user-profile #profile-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#user-profile #profile-image img {
+    width: 58px;
+    height: 58px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+#user-filter {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#user-filter ul {
+    list-style-type: none;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 8px;
+}
+
+#user-filter ul li {
+    display: inline-block;
+    font-size: 17px;
+}
+
+#user-filter ul li a.active {
+    border-bottom: 3px solid #8ECA5D;
+    color: #8ECA5D;
+    font-weight: 600;
+}
+
+#user-filter ul li a {
+    color: #868e96;
+    text-decoration: none;
+    padding: 8px 20px;
+}
+
+.user-reviews {
+    padding-bottom: 30px;
+}
+#user-records {
+    position: relative;
+}
+
+.user-reviews #reviews-list {
+    list-style-type: none;
+}
+
+.user-reviews #reviews-list .review {
+    border-bottom: 1px solid #e9ecef;
+    padding: 10px 10px 10px 0;
+}
+
+.user-reviews #reviews-list .review .review-profile-photo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-reviews #reviews-list .review .review-profile-photo img {
+    width: 50px;
+    height: 50px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+#user-records #no-records {
+    text-align: center;
+    font-size: 17px;
+    padding: 140px 0;
+    width: 100%;
+}
+
+.user-reviews #reviews-list .review .review-writer-username {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.47;
+    letter-spacing: -0.5px;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+.user-reviews #reviews-list .review .review-writer-region-name {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1.46;
+    letter-spacing: -0.5px;
+    vertical-align: middle;
+}
+
+.user-reviews #reviews-list .review .review-content {
+    padding-top: 8px;
+    font-size: 15px;
+    line-height: 1.47;
+    letter-spacing: -0.5px;
+    width: calc(100% - 80px);
+}
+
+.user-reviews #reviews-list .review .review-time {
+    display: block;
+    font-size: 13px;
+    line-height: 1.46;
+    letter-spacing: -0.5px;
+    color: #868e96;
+    margin-top: 8px;
+}
+
+div#no-records {
+    text-align: center;
+    font-size: 17px;
+    padding: 140px 0;
+    width: 100%;
+}
+
+a.page_num {
+    color: #8ECA5D;
+    font-weight: 600;
+}

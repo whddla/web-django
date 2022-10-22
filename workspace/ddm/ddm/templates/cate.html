@@ -1,0 +1,180 @@
+{% extends 'layout/layout.html' %}
+{%load static%}{% load humanize %}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+    <title>{%block title%} 카테고리 {%endblock%}</title>
+</head>
+<body>
+    <div class="ant-row css-669dk7" style="row-gap: 0px;">
+        <div class="ant-col ant-col-4 css-1iwhb7o">
+            <nav class="css-1tgg12g">
+                <div class="css-jx87nv">필터</div>
+                <div class="css-7vb4mz">
+                    <form action="/cate/" method="get">
+                        <div class="css-1pu45ma">
+                            <div class="css-12ph5yl">카테고리</div><div><button class="submit-btn" type="submit">적용</button></div>
+                        </div>
+                        <ul class="menu">
+                            <select class="main-select" name = "main_cate" id="box">
+                                <option value="">
+                                    <div>대분류</div>
+                                </option>
+                                {% for j in main %}
+                                <option value="{{j.bcmn_idx}}" id="{{j.bcmn_idx}}">{{j.main_category}}</option>
+                                {%endfor%}
+                            </select>
+                            <select class="main-select" name = "mid_cate" id="mid">
+                                <option value="">중분류</option>
+                                {%for i in mid%}
+                                <option value="{{i.bcmd_idx}}" id="{{i.main_idx.bcmn_idx}}" class="hidden">{{i.mid_category}}</option>
+                                {%endfor%}
+                            </select>
+                            <select class="main-select" name="sub_cate" id="sub">
+                                <option value="">소분류</option>
+                                {%for s in sub%}
+                                <option value="{{s.bsb_idx}}" id="{{s.mid_idx.bcmd_idx}}" class="hidden">{{ s.sub_category}}</option>
+                                {%endfor%}
+                            </select>
+                        </ul>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <div class="ant-col ant-col-20 css-t77d8m">
+            <div class="">
+                <div class="all-category">
+                    <!-- 카테고리명, 전체개수 -->
+                    <ul style="display: inline-block;">
+                        {%for i in main%}
+                        <li>
+                        {% if i.bcmn_idx == m1 %}
+                            {{i.main_category}} 
+                        </li> 
+                        {%endif%}
+                        {%empty%}
+                        <div>전체 카테고리</div>
+                        {%endfor%}
+                    </ul>
+                    <ul style="display: inline-block;">
+                        {%for j in mid%}
+                        <li class="midli">
+                        {% if j.bcmd_idx == m2 %}
+                            > {{j.mid_category}}
+                        {%endif%} 
+                        </li> 
+                        {%endfor%}
+                    </ul>
+                    <ul style="display: inline-block;">
+                        {%for k in sub%}
+                        <li class="subli">
+                        {% if k.bsb_idx == m3 %}
+                           > {{k.sub_category}}
+                        {%else%}
+                        <div></div>
+                        {%endif%} 
+                        </li> 
+                        {%endfor%}
+                    </ul>
+                </div>
+                <ul class="view-choice">
+                    <li class="view-recent"><a href="/cate/?main_cate={{request.GET.main_cate}}&mid_cate={{request.GET.mid_cate}}&sub_cate={{request.GET.sub_cate}}&recent=1">최신순</a></li>
+                    <li class="view-select"><a href="/cate/?main_cate={{request.GET.main_cate}}&mid_cate={{request.GET.mid_cate}}&sub_cate={{request.GET.sub_cate}}&rowprice=1">낮은가격순</a></li>
+                    <li class="view-select"><a href="/cate/?main_cate={{request.GET.main_cate}}&mid_cate={{request.GET.mid_cate}}&sub_cate={{request.GET.sub_cate}}&highprice=1">높은가격순</a></li>
+                    <li class="view-select"><a href="/cate/?main_cate={{request.GET.main_cate}}&mid_cate={{request.GET.mid_cate}}&sub_cate={{request.GET.sub_cate}}&most=1">인기순</a></li>
+                </ul>
+            </div>
+            <div class="ant-row listWrap css-euacx" style="margin-left: -10px; margin-right: -10px; row-gap: 10px;">
+                {%for i in b%}
+                <div class="ant-col col css-t7ixlq e312bqk0" style="padding-left: 10px; padding-right: 10px;">
+                    <a class="css-8rmnao">
+                        <div class="css-17j97b9">
+                            <div class="thumbWrap">
+                                <div class="css-jib2h8">
+                                {%for j in bf%}
+                                    {%if i.bs_idx == j.upload_id %}
+                                    <a href="/board/detail/?no={{ i.bs_idx }}">
+                                        <img class="css-c1pwq5" src="/media/{{j.upload_file}}/">
+                                    </a>
+                                    {%endif%}
+                                {%endfor%}
+                                </div>
+                                <div class="priceTxt">{{ i.price|intcomma }}원</div>
+                                <div class="titleTxt"><span class="css-5uwdmz">{{i.title}}</span></div>
+                                <div class="registInfo"><span style="width: 50px;">{{i.upload_time}}</span><span style="font-size:12px; margin-left: 27px;">찜{{i.jjim_count}}</span><span style="font-size:12px; margin-left: 10px;">조회수{{i.count}}</span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {%empty%}
+                <div style="width: 100%;height: 400px; text-align:center;">정보가 없습니다.</div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    const selectbox = document.querySelector('#box');
+    const boxlist = selectbox.querySelectorAll('option');
+    const midcatelist = document.querySelectorAll('#mid option');
+    // const midcatelist = document.querySelectorAll('#mid option');
+    // console.log(midcatelist)
+    // const boxAddr = Array.from(boxlist);
+    // console.log(boxAddr)
+    
+    const clickHandler1 = (event) => {
+        const midcatelist = document.querySelectorAll('#mid option');
+        // console.log(midcatelist)
+        const boxAddr = Array.from(boxlist);
+        const selectedArr = boxAddr.filter(opt=>{return opt.selected});
+        // console.log(selectedArr)
+
+        midcatelist.forEach(opt=>opt.classList.add('hidden'));
+
+        // midcatelist.forEach(opt=>opt.classList.add('hidden'));
+        for(let i =0;i<midcatelist.length;i++){
+            const tr = midcatelist[i];
+            const trr = tr.id;
+            if(selectedArr[0].id== trr){
+                tr.classList.remove('hidden');
+            }
+            
+        }
+    };
+    selectbox.addEventListener('change',clickHandler1)
+
+    const midbox = document.querySelector('#mid');
+    const box2list = midbox.querySelectorAll('option');
+    const subcatelist = document.querySelectorAll('#sub option');
+    
+    const clickHandler2 = (event) => {
+        const subcatelist = document.querySelectorAll('#sub option');
+        // console.log(midcatelist)
+        const midAddr = Array.from(box2list);
+        const midselectedArr = midAddr.filter(opt=>{return opt.selected});
+        // console.log(selectedArr)
+
+        subcatelist.forEach(opt=>opt.classList.add('hidden'));
+
+        // midcatelist.forEach(opt=>opt.classList.add('hidden'));
+        for(let j =0;j<subcatelist.length;j++){
+            const trrr = subcatelist[j];
+            const trrrr = trrr.id;
+            if(midselectedArr[0].value== trrrr){
+                trrr.classList.remove('hidden');
+            }
+            
+        }
+    };
+    midbox.addEventListener('change',clickHandler2)
+    //boxlist.forEach(opt=>opt.on=clickHandler);
+</script>
+
+</html>
+{%endblock%}

@@ -1,0 +1,70 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/mypage/update.css' %}">
+</head>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.nickname }}
+            </h2>
+            <div id="profile-image">
+                {% if member_img %}
+                <img src="/media/img/ddm_user.png/" alt="">
+                {% else %}
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+                {% endif %}
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/mypage" class="">판매물품</a></li>
+                <li><a href="/member/mypage/buyproducts" class="">구매물품</a></li>
+                <li><a href="/member/mypage/reviews" class="">거래후기</a></li>
+                <li><a href="/member/mypage/wishes" class="">찜리스트</a></li>
+                <li><a href="/member/mypage/qna" class="">문의내역</a></li>
+                <li><a href="/member/mypage/alarm" class="active">알림설정</a></li>
+                <li><a href="/member/mypage/update" class="">개인정보수정</a></li>
+            </ul>
+        </section>
+        <div class="join">
+            <form action="/member/mypage/alarmset" method="post" name ="alarm">
+                {% csrf_token %}
+                <div class="join-box alarm">
+                    <div class="join-culrum">알람설정</div>
+                    <div class="set-alarm">
+                        {% if member.alarm_agree == 0 %}
+                            <div class="alarm-agree">
+                                <div class="agree-0">
+                                    <div class="alarm-culrum-agree">수신</div>   
+                                    <input type="radio" class="radio" name="alarmagree" value="1">
+                                </div>
+                                <div class="agree-1">
+                                    <div class="alarm-culrum-disagree">수신거부</div>
+                                    <input type="radio" class="radio" name="alarmagree" value="0" checked>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="alarm-agree">
+                                <div class="agree-0">
+                                    <div class="alarm-culrum-agree">수신</div>   
+                                    <input type="radio" class="radio" name="alarmagree" value="1" checked>
+                                </div>
+                                <div class="agree-1">
+                                    <div class="alarm-culrum-disagree">수신거부</div>
+                                    <input type="radio" class="radio" name="alarmagree" value="0">
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="join-box alarm">
+                    <div class="join-culrum">키워드</div>
+                    <input class="inputbox" name="keyword" placeholder="연관태그를 입력해주세요. (최대 30개)">
+                </div>
+                <button class="btn btn-primary" type="submit">저장하기</button>
+            </form>
+        </div>
+{%endblock%}

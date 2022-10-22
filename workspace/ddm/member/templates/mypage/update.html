@@ -1,0 +1,74 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/mypage/update.css' %}">
+</head>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.nickname }}
+            </h2>
+            <div id="profile-image">
+                {% if member_img %}
+                <img src="/media/img/ddm_user.png/" alt="">
+                {% else %}
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+                {% endif %}
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/mypage/" class="">판매물품</a></li>
+                <li><a href="/member/mypage/buyproducts" class="">구매물품</a></li>
+                <li><a href="/member/mypage/reviews" class="">거래후기</a></li>
+                <li><a href="/member/mypage/wishes" class="">찜리스트</a></li>
+                <li><a href="/member/mypage/qna" class="">문의내역</a></li>
+                <li><a href="/member/mypage/alarm" class="">알림설정</a></li>
+                <li><a href="/member/mypage/update" class="active">개인정보수정</a></li>
+            </ul>
+        </section>
+        <div class="join">
+            <form action="/member/mypage/updateform" method="post" name ="update">
+                {% csrf_token %}
+                <div class="join-box">
+                    <input class="join-box inputbox" type="password" name="pw" id="user_pw">
+                </div>
+                {% if result %}
+                    <label class="msg alrt" id="pw_msg">비밀번호를 확인해주세요</label>
+                {% else %}
+                    <label class="msg" id="pw_msg">&nbsp;</label>
+                {% endif %}
+                <input class="btn btn-primary" type="button" value="비밀번호 확인" onclick="check_pw()">
+            </form>
+        </div>
+{%endblock%}
+{% block script %}
+<script type="text/javascript">
+    function printAlert(tagid){
+        document.getElementById(tagid).className = "msg alrt";
+        document.getElementById(tagid).innerText = "필수 정보입니다.";
+    }
+    let $pw = $("#user_pw");
+    var pwEmpty = false;
+    $pw.on('blur', function() {
+        if($pw.val()==''){
+            pwEmpty = false;
+            printAlert('pw_msg')
+        }
+        else {
+            pwEmpty = true;
+        }
+    });
+
+    function check_pw(){
+        if (!pwEmpty){
+            $pw.focus()
+        }
+        else{
+            document.update.submit()
+        }
+    }
+</script>
+{%endblock%}

@@ -1,0 +1,153 @@
+.carousel-item {
+    height: 500px;
+}
+
+.all-board-wrap{
+    max-width: 1280px;
+    margin: auto;
+    position: relative;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.board-wrap{
+    width: 100%;
+    margin: 0px auto;
+    padding: 44px 0px 56px;
+}
+
+.recommend-title{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.recommend-list{
+    padding: 28px 0px 8px;
+    display: flex;
+}
+
+.recommend-item{
+    flex-basis: 20%;
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+.flex-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    display: block !important;
+}
+
+.flex-wrap2{
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.flex-img::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0px;
+    left: 0px;
+}
+
+.priceTxt {
+    padding-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.titleTxt {
+    padding-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    line-height: 17px;
+}
+
+.registInfo {
+    display: flex;
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    margin: 8px 0px 1em;
+    font-size: 12px;
+    color: rgb(163, 163, 163);
+    line-height: normal;
+}
+
+.thumbWrap {
+    width: 128px;
+    position: relative;
+}
+
+.thumbWrap-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.thumbWrap-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    display: block !important;
+}
+
+.ant-col{
+    flex-wrap: wrap;
+    flex-basis: 33.33%;
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+.list-item{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info {
+    flex: 1 1 0%;
+    padding: 4px 16px 0px;
+    color: rgb(10, 4, 0);
+}
+
+.info .price {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.info .title {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.info .registInfo {
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgb(163, 163, 163);
+}

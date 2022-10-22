@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+}
+main {
+    display: block;
+}
+.main1{
+    box-sizing: border-box;
+    max-width: var(--sizes-maxContent);
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+.main_message {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    margin-left: -4px;
+    font-size: 50px;
+}
+.main2 {
+    display: grid;
+    gap: 5rem;
+}
+.main3 {
+    margin: 0 auto;
+}
+.c-ffaQVU{
+    position: relative;
+    overflow: hidden;
+}
+figure {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+.main5 {
+    float: left;
+    box-sizing: border-box;
+    width: 691px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    grid-column-start: 1;
+    grid-column-end: end;
+    font-size: 22px;
+    line-height: var(--lineHeights-body2);
+    font-weight: bold;
+    white-space: pre-line;
+    padding-left: 2.5rem;
+    padding-right: 1.5rem;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.mian6{
+    margin :0;
+    gap: 5rem;
+}
+.main7{
+    box-sizing: border-box;
+    max-width: var(--sizes-maxContent);
+    margin: 0px auto;
+    text-align-last: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 80px;
+    grid-template-areas:
+        "title"
+        "description";
+}
+.mian8 {
+    display: inline-block;
+ text-align-last: left;
+}
+
+.main8-1{
+    font-weight: bold;
+}
+.main8-2{
+    font-size: 35px;
+    white-space: pre-line;
+    font-weight: 600;
+}
+.main9{
+    letter-spacing: 1.5px;
+    margin-left: 37px;
+    width: 500px;
+    display: inline-block;
+    
+}
+
+.row{
+        width: 1200px;
+    }
+.main10{
+        display: inline-block;
+        margin-left: 22px;
+    }
+.main10-1{
+        font-weight: bold;
+        font-size: 19px;
+    }
+.main10-2{
+        white-space: pre-line;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;  
+        margin-top: 28px;
+    }
+.main11 {
+        bottom: 0;
+        height: 500px;
+        left: 0;
+        right: auto;
+        max-width: none;
+        padding: 0;
+        right: 0;
+        top: 0;
+        width: 500px;
+        display: inline-block;
+        object-fit: cover;
+        margin-left: 190px;
+    }
+.main11-1{
+        height: 300px;
+        width: 500px;
+}
+.main12{               
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 98px;
+}
+.main13{
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 127px;
+}
+.main13-1{
+        font-weight: 600;
+}

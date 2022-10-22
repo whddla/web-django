@@ -1,0 +1,105 @@
+{% extends 'layout/layout.html' %}
+{%load static%}
+
+{% block title %}1:1 문의{% endblock %}
+
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/mypage/one-on-one_qt.css' %}">
+</head>
+    <div class="ant-col ant-col-20 css-t77d8m">
+        <section id="user-profile">
+            <h2 id="user-name">
+                {{ member.nickname }}
+            </h2>
+            <div id="profile-image">
+                {% if member_img %}
+                <img src="/media/img/ddm_user.png/" alt="">
+                {% else %}
+                <img src="/media/{{member_img.upload_file}}/" alt="">
+                {% endif %}
+            </div>
+        </section>
+        <section id="user-filter">
+            <ul>
+                <li><a href="/member/mypage" class="">판매물품</a></li>
+                <li><a href="/member/mypage/buyproducts" class="">구매물품</a></li>
+                <li><a href="/member/mypage/reviews" class="">거래후기</a></li>
+                <li><a href="/member/mypage/wishes" class="">찜리스트</a></li>
+                <li><a href="/member/mypage/qna" class="active">문의내역</a></li>
+                <li><a href="/member/mypage/alarm" class="">알림설정</a></li>
+                <li><a href="/member/mypage/update" class="">개인정보수정</a></li>
+            </ul>
+        </section>
+
+        <section id="user-records" class="user-one-on-one_qt" >
+            {% for i in qnaList %}
+            <div id="one-on-one_qt-list" style="margin-bottom: 27px; border-bottom: 1px solid #1e1e1e1e;">
+                <div class="one-on-one_qt">
+                    <div class="chat-header" style="display: inline-block;">
+                        <button class="check-btn myCheck" style="font-weight: 600; font-size:25px; background-color: white;">{{i.qa_kind_idx.main_category}}</button>
+                        <div class="answer-content myContentCheck" style="display: none; width: 767px; border:1px solid #e0e0e0; border-radius: 5px; font-size: 14px; height: 100px; margin-bottom: 10px; padding:10px 15px;">
+                            {{i.content}}
+                        </div>
+                        <!-- <button type="button" class="update" name="{{q_idx}}" onclick="location.href='/board/update/{{q_idx}}'">수정</button> -->
+                    </div>
+                    <div style="float: right; display:inline-block;" >
+                        <button color="primary" type="button" class="fix" value="" onclick="location.href='/qna/change/{{i.q_idx}}'" >수정하기</button>
+                        <button color="primary" type="button" class="delete" onclick="location.href='/qna/delete/{{i.q_idx}}'" >삭제하기</button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <div id="no-records" style=" text-align: center;font-size: 17px;padding: 140px 0;width: 100%;">등록한 질문이 아직 없어요!</div>            
+            {% endfor%}         
+        </section>
+        </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    /* 쪽지함 */
+    $(function(){
+        $('#send').click(function(){
+            $("#frm").removeClass("on");
+            $('#frm').slideToggle();
+        })
+    })
+    $(function(){
+        $('#check').click(function(){
+            $("#contentCheck").removeClass("on");
+            $('#contentCheck').slideToggle();
+        })
+    })
+
+    /* 발신함 */
+    $(function(){
+        $('.myCheck').click(function(){
+            $(".myContentCheck").removeClass("on");
+            $(this).next().slideToggle();
+        })
+    })
+    function tabOpen(evt, contentName){
+        var i, tabcontent, tab_btn;
+
+        tabcontent = document.getElementsByClassName("letter-content");
+        for(i = 0; i<tabcontent.length; i++){ //내용을 나열
+            tabcontent[i].style.display = "none";
+        }
+
+        tab_btn = document.getElementsByClassName("tabs");
+        for(i = 0; i<tab_btn.length; i++){ // 탭 버튼 나열
+
+            //탭 버튼을 눌렀을 때 기존 탭 class 삭제
+            tab_btn[i].className = tab_btn[i].className.replace(" active","");
+
+
+        }
+        //탭을 눌렀을 때 해당 id의 내용을 출력
+        document.getElementById(contentName).style.display = "block";
+        //class 생성 이벤트 발생
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</html>
+{%endblock%}
